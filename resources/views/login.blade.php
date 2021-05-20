@@ -41,7 +41,7 @@
                             <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Password">
                         </div>  
                         <div class="text-center">
-                         <button type="submit" class="btn btn-primary">Inicar</button>
+                         <button type="submit" class="btn btn-primary">Iniciar</button>
                         </div>
                     </form>
                 </div>                

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class fisioterapeuta extends Model
 {
     public $timestamps = false;
+    protected $primaryKey = 'idFisioterapeuta';
 
     use HasFactory;
 }

@@ -31,3 +31,5 @@ Route::get('/Fisioterapeuta/Datos', [App\Http\Controllers\FisioController::class
 Route::get('/Fisioterapeuta/MisClientes', [App\Http\Controllers\FisioController::class,'routeMisClientes'])->name('fisioClientes');
 
 Route::get('/PruebasCalendario',[App\Http\Controllers\HomeController::class,'paginaCalendario']);
+
+Route::post('/ActualizacionDatosCliente',[App\Http\Controllers\ClienteController::class,'actualizarCliente']);

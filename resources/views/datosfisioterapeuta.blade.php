@@ -1,3 +1,11 @@
+<?php 
+    $nombre=session('Nombre');
+    $idActual=session('id');
+    $tipo=session('tipo');
+    session()->flash('id',$idActual);
+    session()->flash('tipo',$tipo);
+    session()->flash('Nombre',$nombre);
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -26,22 +34,47 @@
                 <div class="col-12 text-center">
                     <h1>Mis datos</h1>
                 </div>
+                <div class="col-12">
+                @if(isset($detallesError))
+                    <div class="alert alert-danger" role="alert">
+                        {{$detallesError}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @if(isset($detallesExito))
+                    <div class="alert alert-success" role="alert">
+                        {{$detallesExito}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif      
+                    <div id="errorJavascript">
+                
+                    </div>               
+                </div>
             </div>
-            <form method="GET" action="/">
+            <form method="POST" action="/ActualizacionDatosFisio">
+                @csrf
                 <div class="row mt-4">
                     <div class="col-12">
                         <label for="nombreInput">Nombre</label>
-                        <input type="text" placeholder="Aqui ha de yacer el nombre" class="form-control" name="nombre" id="nombreInput">
+                        <input type="text" placeholder="Aqui ha de yacer el nombre" class="form-control" 
+                        name="nombre" id="nombreInput" value="{{$datosFisio['nombreFisioterapeuta']}}">
                     </div>
                     <div class="col-12 mt-2">
                         <label for="apellidoInput">Apellido</label>
-                        <input type="text" placeholder="Aqui ha de yacer el apellido" class="form-control" name="apellido" id="apellidoInput">
+                        <input type="text" placeholder="Aqui ha de yacer el apellido" class="form-control"
+                        name="apellido" id="apellidoInput" value="{{$datosFisio['apellidoFisioterapeuta']}}">
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <label for="emailInput">Email</label>
-                        <input type="email" placeholder="Aqui ha de yacer el email" class="form-control" name="email" id="emailInput">
+                        <input type="email" placeholder="Aqui ha de yacer el email" class="form-control" 
+                        name="email" id="emailInput" value="{{$datosFisio['correoFisioterapeuta']}}">
                     </div>
                     <div class="col-12 mt-2">
                         <label for="passInput">Contraseña</label>
@@ -51,21 +84,27 @@
                 <div class="row mt-4">                
                     <div class="col-12">
                         <label for="especialidadInput">Especialidad</label>
-                        <input type="textarea" placeholder="Aqui ha de yacer el especialidad" class="form-control" name="especialidad" id="especialidadInput">
+                        <input type="textarea" placeholder="Aqui ha de yacer el especialidad" class="form-control"
+                         name="especialidad" id="especialidadInput" value="{{$datosFisio['especialidadFisioterapeuta']}}">
                     </div> 
                     <div class="col-12 mt-2">
                         <label for="tiempoInput">Minimo tiempo en minutos</label>
-                        <input type="number" placeholder="Aqui ha de yacer el tiempo en minutos" class="form-control" name="tiempo" id="tiempoInput">
+                        <input type="number" placeholder="Aqui ha de yacer el tiempo en minutos" 
+                        class="form-control" name="tiempo" id="tiempoInput" value="{{$datosFisio['tiempoFisioterapeuta']}}">
                     </div> 
                 </div>
                 <div class="row mt-4">   
                     <div class="col-12">
                         <label for="precioInput">Precio por Minuto</label>
-                        <input type="number" placeholder="Aqui ha de yacer el precio" class="form-control" name="precio" id="precioInput">
+                        <input type="number" placeholder="Aqui ha de yacer el precio" 
+                        value="{{$datosFisio['precioFisioterapeuta']}}"
+                        class="form-control" name="precio" id="precioInput">
                     </div>
                     <div class="col-12 mt-2">
                         <label for="descripcionInput">Descripción</label>
-                        <input type="textarea" placeholder="Aqui ha de yacer el descripcion" class="form-control" name="descripcion" id="descripcionInput">
+                        <input type="textarea" placeholder="Aqui ha de yacer el descripcion" class="form-control" 
+                        value="{{$datosFisio['descripcionFisioterapeuta']}}"
+                        name="descripcion" id="descripcionInput">
                     </div> 
                 </div>
                 <div class="row mt-4">   
