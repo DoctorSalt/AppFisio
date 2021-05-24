@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\cliente;
+use \App\Models\fisioterapeuta;
+use \App\Models\disponible;
 
 class ClienteController extends Controller
 {
@@ -71,5 +73,49 @@ class ClienteController extends Controller
     private function devolverDatosClientes($idCliente){
         // cliente::get();
         return cliente::select('nombreCliente','apellidoCliente','dniCliente','correoCliente')->where('idCliente','=',$idCliente)->get();
+    }
+    public function devolverFechasDisponibles(Request $request){
+        $idFisio=$request->input('idFisio');
+        return disponible::selectRaw('distinct disponibles.diaDisponible')->
+        where('idFisioFK','=',$idFisio)->get();
+    }
+    public function devolverCitasPosiblesFechaFisio(Request $request){
+        $idFisio=$request->input('idFisio');
+        $fechaElegida=$request->input('fecha');
+        return disponible::select('diaDisponible','horaDisponible')->
+        where('diaDisponible','=',$fechaElegida)->
+        where('idFisioFK','=',$idFisio)->get();
+    }
+    public function crearCita(Request $request){
+        $hora=$request->input('hora');
+        $dia=$request->input('dia');
+        $tiempo=$request->input('tiempo');
+        $direccion=$request->input('direccion');
+        $precio=$request->input('precio');
+        $idCliente=$request->input('idCliente');
+        $idFisio=$request->input('idFisio');
+        $this->crearCitaSinConfirmar($hora,$dia,$tiempo,$direccion,$precio,$idCliente,$idFisio);
+    }
+    public function confirmacionCita(Request $request){
+        $idFisio=$request->input('idFisio');
+        $descripcion=$request->input('descripcion');
+        $this->confirmarCita($idFisio,$descripcion);
+    }
+    private function crearCitaSinConfirmar($hora,$dia,$tiempo,$direccion,$precio,$idCliente,$idFisio){
+        $cita=new cita();
+        $cita->horaCita=$hora;
+        $cita->diaCita=$dia;
+        $cita->tiempoCita=$tiempo;
+        $cita->direccionCita=$direccion;
+        $cita->precioCita=$precio;
+        $cita->idClienteFK5=$idCliente;
+        $cita->IdFisioterapeutaFK=$idFisio;
+        $cita->save();
+    }
+    private function confirmarCita($idFisio,$descripcion){
+        $cita=cita::find($idFisio);
+        $cita->descripcionCita=$descripcion;
+        $cita->confirmadaCita=1;
+        $cita->save();
     }
 }

@@ -3,6 +3,7 @@ console.log('HOls');
 aniadirBotonesEliminar();
 let botonAnadirForm = document.getElementById('botonAniadirForm');
 botonAnadirForm.addEventListener('click',aniadirForm)
+/*
 function aniadirForm(){
     let selectDiaSemanaForm = document.getElementById('diaSemana');
     let diaSeleccionado = selectDiaSemanaForm.value;
@@ -50,8 +51,13 @@ function aniadirBotonesEliminar(){
         });
     }  
 }
+*/
 function validateForm(){
     let valido=true;
+    let fechaInicialInput = document.getElementById('fechaInicioInput').value;
+    let fechaFinInput = document.getElementById('fechaFinInput').value;    
+    let fechaActual = new Date();
+    let fechaActualString= fechaActual.getFullYear() + "-" + (fechaActual.getMonth() + 1) + "-" + fechaActual.getDate()
     console.log("Entro en valido")
     for(let x=1;x<=5;x++){
         console.log('Dentro linea '+x)
@@ -99,6 +105,12 @@ function validateForm(){
                 }
             }
         }
+    }
+    if(fechaInicialInput>fechaActualString){
+        return false;
+    }
+    if(fechaInicialInput>fechaFinInput){
+        return false;
     }
     return valido;
 }

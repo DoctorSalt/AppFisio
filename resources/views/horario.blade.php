@@ -1,3 +1,7 @@
+<?php 
+$dateActual=new DateTime();
+$stringFechaActual=$dateActual->format('Y-m-d');
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -18,6 +22,7 @@
                     </div>
                 </div>
             </div>
+            <!--
             <div class="row mt-2 text-center">
                 <div class="col-12">
                     <label for="diaSemana">
@@ -36,73 +41,72 @@
                     <button type="button" class="btn btn-primary" id="botonAniadirForm">Añadir</button>
                 </div>
             </div>
+            -->
             <form method="get" action="/Fisio/InsertarHorario" onsubmit="return validateForm()">
             <div class="row mt-2">
                 <div class="col-12">
-                    <table class="table d-none" id="tablaForm">
+                    <table class="table text-center" id="tablaForm">
                         <thead>
                             <tr>
                                 <th scope="col">Dia</th>
-                                <th scope="col">Input Mañana 1</th>
-                                <th scope="col">Input Mañana 2</th>
-                                <th scope="col">Añadir Boton</th>
-                                <th scope="col">Input Tarde 1</th>
-                                <th scope="col">Input Tarde 2</th>
-                                <th scope="col">Eliminar Boton</th>
+                                <th scope="col">Hora Inicial de Mañana</th>
+                                <th scope="col">Hora Final de Mañana</th>
+                                <th scope="col">Hora Inicial de Tarde</th>
+                                <th scope="col">Hora Final de Tarde</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="lineas d-none" id="linea1">
+                            <tr class="lineas" id="linea1">
                                 <td>Lunes</td>
                                 <td><input id="dia1-m1" class="form-control" name="diaLunesManana1" type="time" min="8:00" max="14:00"></td>
                                 <td><input id="dia1-m2" class="form-control" name="diaLunesManana2" type="time" min="8:00" max="14:00"></td>
-                                <td><button type="button" data-code="1" class="btn btn-success botonesAnadir">Añadir</button></td>
-                                <td><input id="dia1-t1" class="d-none form-control" name="diaLunesTarde1" type="time" min="16:00" max="21:00"></td>
-                                <td><input id="dia1-t2" class="d-none form-control" name="diaLunesTarde2" type="time" min="16:00" max="21:00"></td>
-                                <td><button type="button" data-code="1" class="btn btn-danger botonesEliminar">Eliminar</button></td>
+                                <td><input id="dia1-t1" class="form-control" name="diaLunesTarde1" type="time" min="16:00" max="21:00"></td>
+                                <td><input id="dia1-t2" class="form-control" name="diaLunesTarde2" type="time" min="16:00" max="21:00"></td>
                             </tr>
-                            <tr class="lineas d-none" id="linea2">
+                            <tr class="lineas" id="linea2">
                                 <td>Martes</td>
                                 <td><input id="dia2-m1" class="form-control" name="diaMartesManana1" type="time" min="8:00" max="14:00"></td>
                                 <td><input id="dia2-m2" class="form-control" name="diaMartesManana2" type="time" min="8:00" max="14:00"></td>
-                                <td><button type="button" data-code="2" class="btn btn-success botonesAnadir">Añadir</button></td>
-                                <td><input id="dia2-t1" class="d-none form-control" name="diaMartesTarde1" type="time" min="16:00" max="21:00"></td>
-                                <td><input id="dia2-t2" class="d-none form-control" name="diaMartesTarde2" type="time" min="16:00" max="21:00"></td>
-                                <td><button type="button" data-code="2" class="btn btn-danger botonesEliminar">Eliminar</button></td>
+                                <td><input id="dia2-t1" class="form-control" name="diaMartesTarde1" type="time" min="16:00" max="21:00"></td>
+                                <td><input id="dia2-t2" class="form-control" name="diaMartesTarde2" type="time" min="16:00" max="21:00"></td>
                             </tr>
-                            <tr class="lineas d-none" id="linea3">
+                            <tr class="lineas" id="linea3">
                                 <td>Miercoles</td>
                                 <td><input id="dia3-m1" class="form-control" name="diaMiercolesManana1" type="time" min="8:00" max="14:00"></td>
                                 <td><input id="dia3-m2" class="form-control" name="diaMiercolesManana2" type="time" min="8:00" max="14:00"></td>
-                                <td><button type="button" data-code="3" class="btn btn-success botonesAnadir">Añadir</button></td>
-                                <td><input id="dia3-t1" class="d-none form-control" name="diaMiercolesTarde1" type="time" min="16:00" max="21:00"></td>
-                                <td><input id="dia3-t2" class="d-none form-control" name="diaMiercolesTarde2" type="time" min="16:00" max="21:00"></td>
-                                <td><button type="button" data-code="3" class="btn btn-danger botonesEliminar">Eliminar</button></td>
+                                <td><input id="dia3-t1" class="form-control" name="diaMiercolesTarde1" type="time" min="16:00" max="21:00"></td>
+                                <td><input id="dia3-t2" class="form-control" name="diaMiercolesTarde2" type="time" min="16:00" max="21:00"></td>
                             </tr>
-                            <tr class="lineas d-none" id="linea4">
+                            <tr class="lineas" id="linea4">
                                 <td>Jueves</td>
                                 <td><input id="dia4-m1" class="form-control" name="diaJuevesManana1" type="time" min="8:00" max="14:00"></td>
                                 <td><input id="dia4-m2" class="form-control" name="diaJueveslManana2" type="time" min="8:00" max="14:00"></td>
-                                <td><button type="button" data-code="4" class="btn btn-success botonesAnadir">Añadir</button></td>
-                                <td><input id="dia4-t1" class="d-none form-control" name="diaJuevesTarde1" type="time" min="16:00" max="21:00"></td>
-                                <td><input id="dia4-t2" class="d-none form-control" name="diaJuevesTarde2" type="time" min="16:00" max="21:00"></td>
-                                <td><button type="button" data-code="4" class="btn btn-danger botonesEliminar">Eliminar</button></td>
+                                <td><input id="dia4-t1" class="form-control" name="diaJuevesTarde1" type="time" min="16:00" max="21:00"></td>
+                                <td><input id="dia4-t2" class="form-control" name="diaJuevesTarde2" type="time" min="16:00" max="21:00"></td>
                             </tr>
-                            <tr class="lineas d-none" id="linea5">
+                            <tr class="lineas" id="linea5">
                                 <td>Viernes</td>
                                 <td><input id="dia5-m1" class="form-control" name="diaViernesManana1" type="time" min="8:00" max="14:00"></td>
                                 <td><input id="dia5-m2" class="form-control" name="diaVierneslManana2" type="time" min="8:00" max="14:00"></td>
-                                <td><button type="button" data-code="5" class="btn btn-success botonesAnadir">Añadir</button></td>
-                                <td><input id="dia5-t1" class="d-none form-control" name="diaViernesTarde1" type="time" min="16:00" max="21:00"></td>
-                                <td><input id="dia5-t2" class="d-none form-control" name="diaViernesTarde2" type="time" min="16:00" max="21:00"></td>
-                                <td><button type="button" data-code="5" class="btn btn-danger botonesEliminar">Eliminar</button></td>
+                                <td><input id="dia5-t1" class="form-control" name="diaViernesTarde1" type="time" min="16:00" max="21:00"></td>
+                                <td><input id="dia5-t2" class="form-control" name="diaViernesTarde2" type="time" min="16:00" max="21:00"></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-12">
-                    <button type="submit" class="d-none btn btn-primary" id="botonEnviarForm">Enviar</button>
+                <div class="col-6 mt-2">
+                        <label for="fechaInicioInput">Fecha Inicio</label>
+                        <input type="date" placeholder="Aqui ha de yacer el dni" 
+                        class="form-control" name="fechaInico" id="fechaInico" value="{{$stringFechaActual}}">
+                </div>
+                <div class="col-6 mt-2">
+                        <label for="fechaFinInput">Fecha Fin</label>
+                        <input type="date" placeholder="Aqui ha de yacer el dni" 
+                        class="form-control" name="fechaFin" id="fechaFinInput" value="">
+                </div>
+                <div class="col-12 text-center mt-4">
                     <input class="d-none" name="idUsuario" value="<?php echo $idFisio ?>">
+                    <button type="submit" class="btn btn-success" id="botonEnviarForm">Enviar</button>                   
                 </div>
             </div>
             <div class="row mt-2">

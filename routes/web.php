@@ -33,3 +33,12 @@ Route::get('/Fisioterapeuta/MisClientes', [App\Http\Controllers\FisioController:
 Route::get('/PruebasCalendario',[App\Http\Controllers\HomeController::class,'paginaCalendario']);
 
 Route::post('/ActualizacionDatosCliente',[App\Http\Controllers\ClienteController::class,'actualizarCliente']);
+
+Route::get('/DiasDisponible',[App\Http\Controllers\ClienteController::class,'devolverFechasDisponibles']);
+Route::post('/ConfirmarCitaExistente',[App\Http\Controllers\ClienteController::class,'devolverFechasDisponibles']);
+
+
+Route::get('/DiasDisponible',[App\Http\Controllers\ClienteController::class,'confirmacionCita']);
+Route::get('/HorasEnDia',[App\Http\Controllers\ClienteController::class,'devolverCitasPosiblesFechaFisio']);
+Route::post('/InsertarCita',[App\Http\Controllers\ClienteController::class,'crearCita']);
+
