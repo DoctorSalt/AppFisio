@@ -9,6 +9,9 @@ class fisioterapeuta extends Model
 {
     public $timestamps = false;
     protected $primaryKey = 'idFisioterapeuta';
-
+    
     use HasFactory;
+    protected $casts = [
+        'tiempoFisioterapeuta' => 'integer',
+    ];
 }

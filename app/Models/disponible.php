@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class disponible extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+    protected $primaryKey = 'idDisponible';
 }

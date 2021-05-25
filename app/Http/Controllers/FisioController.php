@@ -7,7 +7,7 @@ use \App\Models\fisioterapeuta;
 use \App\Models\horario;
 use \App\Models\disponible;
 use DateTime;
-USE Date;
+use DateInterval;
 
 class FisioController extends Controller
 {
@@ -113,56 +113,17 @@ class FisioController extends Controller
             return $resultadoFinal;
         }else{
             //error
-        }
-        /*
-        try{
-            $horario=new horario();
-            
-            $horario->lunesmiHorario=$diaLuM1;
-            $horario->lunesmfHorario=$diaLuM2;
-            $horario->lunestiHorario=$diaLuT1;
-            $horario->lunestfHorario=$diaLuT2;
-
-            $horario->martesmiHorario=$diaMaM1;
-            $horario->martesmfHorario=$diaMaM2;
-            $horario->martestiHorario=$diaMaT1;
-            $horario->martestfHorario=$diaMaT2;
-            
-            $horario->miercolesmiHorario=$diaMiM1;
-            $horario->miercolesmfHorario=$diaMiM2;
-            $horario->miercolestiHorario=$diaMiT1;
-            $horario->miercolestfHorario=$diaMiT2;
-            
-            $horario->juevesmiHorario=$diaJuM1;
-            $horario->juevesmfHorario=$diaJuM2;
-            $horario->juevestiHorario=$diaJuT1;
-            $horario->juevestfHorario=$diaJuT2;
-            
-            $horario->viernesmiHorario=$diaViM1;
-            $horario->viernesmfHorario=$diaViM2;
-            $horario->viernestiHorario=$diaViT1;
-            $horario->viernestfHorario=$diaViT2;
-            $horario->save();
-            $idInsertado=$horario->idHorario;
-            $result=fisioterapeuta::where('idFisioterapeuta','=',$idFisioterapeuta)->update(['idHorarioFK'=>$idInsertado]);           
-        } catch(ExceptionsException $e){
-            $error = "Error insertando fisio";
-            session()->flash('error',$error);
-            return redirect()->route('registroFisio');
-        } 
-        
-        return redirect()->route('registroFisio');
-    */
+        }        
     }
     private function realizandoBusquedaInsertCalendario($idFisioterapeuta,$fechaActivoInicio,$fechaActivoFin){
-        $arrayTiempoFisio=fisioterapeuta::select('tiempoFisioterapeuta')->where('idFisioterapeuta','=',$idFisioterapeuta)->get();
-        $tiempoFisio=$arrayTiempoFisio[0];
+        $arrayTiempoFisio=fisioterapeuta::select('tiempoFisioterapeuta')
+        ->where('idFisioterapeuta','=',$idFisioterapeuta)->first();
+        $tiempoFisio=(int)$arrayTiempoFisio['tiempoFisioterapeuta'];
         $datosHorarios=horario::select('diaSemanaHorario','hora1Horario','hora2Horario','hora3Horario','hora4Horario')
         ->where('fechaInicioHorario','=',$fechaActivoInicio)
         ->where('fechaFinHorario','=',$fechaActivoFin)
         ->where('idFisioterpeutaFK','=',$idFisioterapeuta)->get();
         $fechasDiferentes=$this->devolverFechasResultantesUnicas($datosHorarios, $fechaActivoInicio,$fechaActivoFin);
-        
         foreach($fechasDiferentes as $fecha){
             $numeroDia=$fecha['num'];
             $fechaActual=$fecha['fecha'];
@@ -175,26 +136,42 @@ class FisioController extends Controller
             $hora2=$horarioIndividual[0]['hora2Horario'];
             $hora3=$horarioIndividual[0]['hora3Horario'];
             $hora4=$horarioIndividual[0]['hora4Horario'];
-            var_dump($hora2);
-
-            $horaTransformada1=$this->pasarAint($hora2);
-            $horaTransformada2=$this->pasarAint($hora1);
-            var_dump($hora2);
-
-            //return $hora1;
-            $diferenciaHorasManana=($horaTransformada2-$horaTransformada1)/$tiempoFisio;
-            return $diferenciaHorasManana;
-            /*
-            $horaActual;
-            for($contador=0;$contador<$diferenciaHorasManana;$contador++){
+            //var_dump($hora2);
+            //$horaDate1 = new DateTime($hora1);
+            //$horaDate2 = new DateTime($hora2);
+            $horaDate1 = strtotime("2020-1-1 ".$hora1);
+            $horaDate2 = strtotime("2020-1-1 ".$hora2);
+            $diferenciaMin = $horaDate2 - $horaDate1;
+            $vecesNecesarias=($diferenciaMin/60)/$tiempoFisio;
+            $horaActual=0;
+            for($contador=0;$contador<$vecesNecesarias;$contador++){
                 if($contador==0){
                     $horaActual=$hora1;
                     $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
-                }else{
-                    $horaActual=$horaActual*$tiempoFisio;
+                }else{                   
+                    $mifecha = new DateTime("2020-1-1 ".$horaActual); 
+                    $mifecha->modify('+'.$tiempoFisio.' minute');                    
+                    $horaActual=$mifecha->format('H:i:s');
                     $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
                 }
             }
+            $horaDate1 = strtotime("2020-1-1 ".$hora3);
+            $horaDate2 = strtotime("2020-1-1 ".$hora4);
+            $diferenciaMin = $horaDate2 - $horaDate1;
+            $vecesNecesarias=($diferenciaMin/60)/$tiempoFisio;
+            $horaActual=0;
+            for($contador=0;$contador<$vecesNecesarias;$contador++){
+                if($contador==0){
+                    $horaActual=$hora3;
+                    $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
+                }else{                   
+                    $mifecha = new DateTime("2020-1-1 ".$horaActual); 
+                    $mifecha->modify('+'.$tiempoFisio.' minute');                    
+                    $horaActual=$mifecha->format('H:i:s');
+                    $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
+                }
+            }
+            /*
             $diferenciaHorasTarde=($hora4-$hora3)/$tiempoFisio;
             for($contador=0;$contador<$diferenciaHorasTarde;$contador++){
                 if($contador==0){
@@ -205,9 +182,10 @@ class FisioController extends Controller
                     $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
                 }
             }
-            */
+            */            
         }
-        
+        return "Nice";
+
         //return $fechasDiferentes;
         // Para devolver la fecha especifica del siguiente lunes o martes se usa:
             //$date=new DateTime();
@@ -259,11 +237,11 @@ class FisioController extends Controller
         while($fin==false){
             foreach($arraySemana as $diaSemana){
                 if($contador==0){
-                    $diaInical=$dateInicial->format('l');
-                    $resultado=$this->esDiaActual($diaSemana,$diaInical);
+                    $diaInicial=$dateInicial->format('l');
+                    $resultado=$this->esDiaActual($diaSemana,$diaInicial);
                     if($resultado){                        
                         $fechas[$contador]['fecha']=$stringFechaInicio;
-                        $fechas[$contador]['num']=$dia;
+                        $fechas[$contador]['num']=$diaSemana;
                     }else{
                         $stringFechaInicio=$this->cambiarFecha($diaSemana,$stringFechaInicio);
                         if($stringFechaInicio>$stringFechaFinal){
@@ -339,32 +317,32 @@ class FisioController extends Controller
         }
         return $dateActual->format('Y-m-d');
     }
-    private function esDiaActual($dia,$diaInical){
-        $diaInicialNum;
-        switch($diaInical){
-            case "Mon":
+    private function esDiaActual($diaSemana,$diaInicial){
+        $diaInicialNum=0;
+        switch($diaSemana){
+            case "Monday":
                 $diaInicialNum=1;
                 break;
-            case "Tue":
+            case "Tuesday":
                 $diaInicialNum=2;
                 break;
-            case "Wed":
+            case "Wednesday":
                 $diaInicialNum=3;
                 break;
-            case "Thu":
+            case "Thursday":
                 $diaInicialNum=4;
                 break;
-            case "Fri":
+            case "Friday":
                 $diaInicialNum=5;
                 break;
-            case "Sat":
+            case "Saturday":
                 $diaInicialNum=6;
                 break;
-            case "Sun":
+            case "Sunday":
                 $diaInicialNum=7;
                 break;
         }
-        if($dia==$diaInical){
+        if($diaInicial==$diaInicialNum){
             return true;
         }else{
             return false;
