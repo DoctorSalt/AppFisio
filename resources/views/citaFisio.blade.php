@@ -23,9 +23,9 @@
             </button>                  
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item active"><a class="nav-link" href="/Fisioterapeuta/Inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/Inicio">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/MisClientes">Mis Clientes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/MisCitas">Mis Citas</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/Fisioterapeuta/MisCitas">Mis Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="/Login">Mi Calendario</a></li>
                     <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/Datos">Mi Datos</a></li>
                     <li class="nav-item"><a class="nav-link" href="/">Blog</a></li>
@@ -36,12 +36,12 @@
         </nav>
         <div class="container mt-4">
             <div class="row">   
-                <div class="col-12"> 
-                     <h1>Bienvenido fisio {{$Arreglo['nombre']}} </h1>
+                <div class="col-12 text-center"> 
+                     <h1>Citas</h1>
                 </div>
                 @if(!empty($detallesExito))
                     <div class="col-12 mt-2">
-                    @if($detallesExito=="Se ha incorporado confirmada la cita correctamente")
+                    @if($detallesExito=="Se ha incorporado el horario correctamente")
                         <div class="alert alert-success" role="alert">
                             {{$detallesExito}}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -57,33 +57,19 @@
                         </div>
                     @endif
                     </div>
-                @endif
-                <!--
-                <div class="col-12 col-lg-6 mt-4 text-center">
-                    Tiene o no tiene citas 
-                    <h3>Cita más reciente</h3>
-                    <div class="card alert alert alert-info text-center mt-3">                    
-                        <div class="card-body">
-                            <h4 class="card-title">Tiene una cita dentro de 20 dias</h4>
-                            <h5 class="card-subtitle mb-2 text-muted">con <strong>Jose Miguel</strong></h5>
-                            <h5 class="card-subtitle mb-2 text-muted">en Localizacion X</h5>
-                            <button class="btn btn-success mt-3">Más detalles</button>
-                        </div>
-                    </div>                    
-                </div> -->
+                @endif               
                 @if(sizeOf($citasConfirmadas)!=0)
                 <div class="col-12 col-lg-6 mt-4 text-center">
-                    <h3>Citas</h3>
+                    <h3>Citas Pendientes</h3>
                     <div class="container">
                         <div class="row">                            
                             @foreach($citasConfirmadas as $citaSi)
                             <div class="col-12 col-md-6 mt-3">
                                 <div class="card alert alert alert-info text-center mt-3">
                                     <div class="card-body">
-                                        <h4 class="card-title">Tiene una cita dentro de {{$cita['diaCita']}}</h4>
+                                        <h4 class="card-title">Tiene una cita dentro de {{$citaSi['diaCita']}}</h4>
                                         <h5 class="card-subtitle mb-2 text-muted">con <strong>{{$citaSi['nombreCliente']}}</strong></h5>
                                         <h5 class="card-subtitle mb-2 text-muted">en {{$citaSi['direccionCita']}}</h5>
-                                        <button class="btn btn-success mt-3">Más detalles</button>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +89,31 @@
                                     <div class="card-body">
                                         <h4 class="card-title">Su cita con <strong>{{$cita['nombreCliente']}}</strong></h4>
                                         <h5 class="card-subtitle mb-2 text-muted">El dia {{$cita['diaCita']}} a las {{$cita['horaCita']}} </h5>
-                                        <a  href="/Fisioterapeuta/MisCitas"><button class="btn btn-success">Confirmar Cita</button></a>
+                                        <form action="/ConfirmarCita" method="GET">
+                                            <div class="row mt-4">
+                                                <div class="col-12">
+                                                    <input class="d-none" type="text" name="idCita" value="{{$cita['idCita']}}">
+                                                    <label for="localizacionInput">Localizacion</label>
+                                                    <input type="text" placeholder="Aqui ha de la localizacion" class="form-control" require
+                                                    name="localizacion" id="localizacionInput">
+                                                </div>
+                                                <div class="col-12 mt-2">
+                                                    <?php $precio=$datosFisio[0]['precioFisioterapeuta']*$datosFisio[0]['tiempoFisioterapeuta']?>
+                                                    <label for="precioInput">Precio</label>
+                                                    <input type="number" placeholder="Aqui ha de yacer el precio" 
+                                                     value="{{$precio}}" step="any" class="form-control"
+                                                     max={{$precio}} name="precio" id="precioInput" require>
+                                                </div>
+                                                <div class="col-12 mt-2">
+                                                    <label for="descripcionInput">Descripción</label>
+                                                    <input type="textarea" placeholder="Aqui ha de yacer el descripcion" class="form-control" 
+                                                         value="" name="descripcion" id="descripcionInput">
+                                                </div>
+                                                <div class="col-12 mt-2">
+                                                    <button type="submit" class="btn btn-success">Confirmar Cita</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

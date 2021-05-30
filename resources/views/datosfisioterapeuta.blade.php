@@ -5,6 +5,7 @@
     session()->flash('id',$idActual);
     session()->flash('tipo',$tipo);
     session()->flash('Nombre',$nombre);
+    $provincias=["Sevilla","Huelva","Granada","Málaga","Cádiz"];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -106,6 +107,20 @@
                         value="{{$datosFisio['descripcionFisioterapeuta']}}"
                         name="descripcion" id="descripcionInput">
                     </div> 
+                    <div class="col-12 mt-2">
+                        <div class="row mt-4">
+                            <label for="provinciaInput">Provincia</label>
+                            <select class="form-control" name="provincia" id="provinciaSelect">
+                            @foreach($provincias as $provincia)
+                                @if($provincia==$datosFisio['provinciaFisioterapeuta'])
+                                    <option selected value="{{$provincia}}">{{$provincia}}</option>
+                                @else
+                                    <option value="{{$provincia}}">{{$provincia}}</option>
+                                @endif
+                            @endforeach                             
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="row mt-4">   
                     <div class="col-6">

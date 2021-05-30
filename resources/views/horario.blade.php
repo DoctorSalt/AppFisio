@@ -1,6 +1,12 @@
 <?php 
 $dateActual=new DateTime();
 $stringFechaActual=$dateActual->format('Y-m-d');
+$nombre=session('Nombre');
+    $idActual=session('id');
+    $tipo=session('tipo');
+    session()->flash('id',$idActual);
+    session()->flash('tipo',$tipo);
+    session()->flash('Nombre',$nombre);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,27 +27,7 @@ $stringFechaActual=$dateActual->format('Y-m-d');
                         16:00 hasta 21:00 para la segunda franja 
                     </div>
                 </div>
-            </div>
-            <!--
-            <div class="row mt-2 text-center">
-                <div class="col-12">
-                    <label for="diaSemana">
-                        Dia de la Semana
-                    </label>
-                    <select class="browser-default custom-select" id="diaSemana">
-                        <option value="0" selected>Seleccione dia de la Semana</option>
-                        <option value="1">Lunes</option>
-                        <option value="2">Martes</option>
-                        <option value="3">Miercoles</option>
-                        <option value="4">Jueves</option>
-                        <option value="5">Viernes</option>
-                    </select>
-                </div>
-                <div class="col-12 mt-2">
-                    <button type="button" class="btn btn-primary" id="botonAniadirForm">Añadir</button>
-                </div>
-            </div>
-            -->
+            </div>           
             <form method="get" action="/Fisio/InsertarHorario" onsubmit="return validateForm()">
             <div class="row mt-2">
                 <div class="col-12">
@@ -80,14 +66,14 @@ $stringFechaActual=$dateActual->format('Y-m-d');
                             <tr class="lineas" id="linea4">
                                 <td>Jueves</td>
                                 <td><input id="dia4-m1" class="form-control" name="diaJuevesManana1" type="time" min="8:00" max="14:00"></td>
-                                <td><input id="dia4-m2" class="form-control" name="diaJueveslManana2" type="time" min="8:00" max="14:00"></td>
+                                <td><input id="dia4-m2" class="form-control" name="diaJuevesManana2" type="time" min="8:00" max="14:00"></td>
                                 <td><input id="dia4-t1" class="form-control" name="diaJuevesTarde1" type="time" min="16:00" max="21:00"></td>
                                 <td><input id="dia4-t2" class="form-control" name="diaJuevesTarde2" type="time" min="16:00" max="21:00"></td>
                             </tr>
                             <tr class="lineas" id="linea5">
                                 <td>Viernes</td>
                                 <td><input id="dia5-m1" class="form-control" name="diaViernesManana1" type="time" min="8:00" max="14:00"></td>
-                                <td><input id="dia5-m2" class="form-control" name="diaVierneslManana2" type="time" min="8:00" max="14:00"></td>
+                                <td><input id="dia5-m2" class="form-control" name="diaViernesManana2" type="time" min="8:00" max="14:00"></td>
                                 <td><input id="dia5-t1" class="form-control" name="diaViernesTarde1" type="time" min="16:00" max="21:00"></td>
                                 <td><input id="dia5-t2" class="form-control" name="diaViernesTarde2" type="time" min="16:00" max="21:00"></td>
                             </tr>

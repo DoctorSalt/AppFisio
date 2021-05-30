@@ -93,6 +93,16 @@
                             <input type="textarea" placeholder="Aqui ha de yacer el descripcion" class="form-control" name="descripcion" id="descripcionInput">
                         </div> 
                     </div>
+                    <div class="row mt-4">
+                        <label for="provinciaInput">Provincia</label>
+                        <select  class="form-control" name="provincia" id="provinciaSelect">
+                            <option value="Sevilla">Sevilla</option>
+                            <option value="Huelva">Huelva</option>
+                            <option value="Granada">Granada</option>
+                            <option value="Málaga">Málaga</option>
+                            <option value="Cádiz">Cádiz</option>
+                        </select>
+                    </div>
                     @endif
                     <div class="row mt-4">   
                         <div class="col-12">

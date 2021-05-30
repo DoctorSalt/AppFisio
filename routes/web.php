@@ -29,16 +29,31 @@ Route::get('/Cliente/MisCitas', [App\Http\Controllers\ClienteController::class,'
 Route::get('/Fisioterapeuta/Inicio', [App\Http\Controllers\FisioController::class,'rutaFisioterapeuta'])->name('fisioInicio');
 Route::get('/Fisioterapeuta/Datos', [App\Http\Controllers\FisioController::class,'misDatosFisioterapeuta'])->name('fisioDatos');
 Route::get('/Fisioterapeuta/MisClientes', [App\Http\Controllers\FisioController::class,'routeMisClientes'])->name('fisioClientes');
+Route::get('/Fisioterapeuta/MisCitas', [App\Http\Controllers\FisioController::class,'routeMisCitas'])->name('citaFisio');
 
 Route::get('/PruebasCalendario',[App\Http\Controllers\HomeController::class,'paginaCalendario']);
 
 Route::post('/ActualizacionDatosCliente',[App\Http\Controllers\ClienteController::class,'actualizarCliente']);
 
 Route::get('/DiasDisponible',[App\Http\Controllers\ClienteController::class,'devolverFechasDisponibles']);
-Route::post('/ConfirmarCitaExistente',[App\Http\Controllers\ClienteController::class,'devolverFechasDisponibles']);
 
+Route::get('/BuscarPorProvinciaFisioterapeutas',[App\Http\Controllers\ClienteController::class,'fisioterapeutasDeUnaProvincia']);
 
-Route::get('/DiasDisponible',[App\Http\Controllers\ClienteController::class,'confirmacionCita']);
 Route::get('/HorasEnDia',[App\Http\Controllers\ClienteController::class,'devolverCitasPosiblesFechaFisio']);
-Route::post('/InsertarCita',[App\Http\Controllers\ClienteController::class,'crearCita']);
+//Route::post('/InsertarCita',[App\Http\Controllers\ClienteController::class,'crearCita']);
+Route::get('/Cliente/RealizarCitas',[App\Http\Controllers\ClienteController::class,'rutaMisCitas']);
 
+
+
+Route::get('/BuscarDisponibilidadFisio',[App\Http\Controllers\HomeController::class,'buscarDisponibles']);
+Route::get('/BuscarDisposEnFecha',[App\Http\Controllers\HomeController::class,'buscarDisponiblesPorFecha']);
+
+
+Route::get('/VerCitasSinfirmadasCliente',[App\Http\Controllers\ClienteController::class,'busquedaSinCita']); //OK
+Route::get('/VerCitasSinfirmadasFisio',[App\Http\Controllers\FisioController::class,'busquedaSinCita']); //OK
+Route::get('/VerCitasConfirmadasCliente',[App\Http\Controllers\ClienteController::class,'busquedaConfirmadaCita']); //OK
+Route::get('/VerCitasConfirmadasFisio',[App\Http\Controllers\FisioController::class,'busquedaConfirmadaCita']); //OK
+
+Route::get('/InsertarCitaUsuario',[App\Http\Controllers\ClienteController::class,'aniadirCita']);
+Route::get('/ConfirmarCita',[App\Http\Controllers\FisioController::class,'confirmarCita']);
+Route::get('/RealizadaCita',[App\Http\Controllers\FisioController::class,'realizadoCita']);

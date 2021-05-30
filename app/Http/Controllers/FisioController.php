@@ -6,26 +6,16 @@ use Illuminate\Http\Request;
 use \App\Models\fisioterapeuta;
 use \App\Models\horario;
 use \App\Models\disponible;
+use \App\Models\cita;
+
 use DateTime;
 use DateInterval;
 
 class FisioController extends Controller
 {
     //
-    function asignarHorario(Request $request){
-        /*
-        array(21) 
-        { ["diaLunesManana1"]=> string(5) "12:00" ["diaLunesManana2"]=> string(5) "13:00" 
-                ["diaLunesTarde1"]=> NULL ["diaLunesTarde2"]=> NULL 
-        ["diaMartesManana1"]=> string(5) "12:00" ["diaMartesManana2"]=> string(5) "13:00" 
-                ["diaMartesTarde1"]=> string(5) "19:00" ["diaMartesTarde2"]=> string(5) "20:00" 
-        ["diaMiercolesManana1"]=> NULL ["diaMiercolesManana2"]=> NULL 
-            ["diaMiercolesTarde1"]=> NULL ["diaMiercolesTarde2"]=> NULL 
-        ["diaJuevesManana1"]=> NULL ["diaJueveslManana2"]=> NULL 
-            ["diaJuevesTarde1"]=> NULL ["diaJuevesTarde2"]=> NULL 
-        ["diaViernesManana1"]=> NULL ["diaVierneslManana2"]=> NULL 
-            ["diaViernesTarde1"]=> NULL ["diaViernesTarde2"]=> NULL ["idUsuario"]=> string(1) "1" } 
-        */
+    function asignarHorario(Request $request){        
+        $arreglo=$this->sesionDevolverArreglo();
         $diaLuM1=$request->input('diaLunesManana1');
         $diaLuM2=$request->input('diaLunesManana2');
         $diaLuT1=$request->input('diaLunesTarde1');
@@ -55,7 +45,6 @@ class FisioController extends Controller
         
         $fechaActivoInicio=$request->input('fechaInico');
         $fechaActivoFin=$request->input('fechaFin');
-
         $booleanSeHaCreado=false;
         if(
             (($diaLuM1!="")&&($diaLuM1!=null)&&($diaLuM2!="")&&($diaLuM2!=null))||
@@ -97,8 +86,7 @@ class FisioController extends Controller
             }
         }
         if(           
-            (
-                ($diaViM1!="")&&($diaViM1!=null)&&($diaViM2!="")&&($diaViM2!=null))||
+            (($diaViM1!="")&&($diaViM1!=null)&&($diaViM2!="")&&($diaViM2!=null))||
             (($diaViT1!="")&&($diaViT1!=null)&&($diaViT2!="")&&($diaViT2!=null)) 
         )           
         {
@@ -113,6 +101,8 @@ class FisioController extends Controller
             return $resultadoFinal;
         }else{
             //error
+            session()->flash('Exito','Se han producido errores');
+            return redirect()->route('fisioInicio');
         }        
     }
     private function realizandoBusquedaInsertCalendario($idFisioterapeuta,$fechaActivoInicio,$fechaActivoFin){
@@ -135,10 +125,7 @@ class FisioController extends Controller
             $hora1=$horarioIndividual[0]['hora1Horario'];
             $hora2=$horarioIndividual[0]['hora2Horario'];
             $hora3=$horarioIndividual[0]['hora3Horario'];
-            $hora4=$horarioIndividual[0]['hora4Horario'];
-            //var_dump($hora2);
-            //$horaDate1 = new DateTime($hora1);
-            //$horaDate2 = new DateTime($hora2);
+            $hora4=$horarioIndividual[0]['hora4Horario'];           
             $horaDate1 = strtotime("2020-1-1 ".$hora1);
             $horaDate2 = strtotime("2020-1-1 ".$hora2);
             $diferenciaMin = $horaDate2 - $horaDate1;
@@ -171,41 +158,14 @@ class FisioController extends Controller
                     $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
                 }
             }
-            /*
-            $diferenciaHorasTarde=($hora4-$hora3)/$tiempoFisio;
-            for($contador=0;$contador<$diferenciaHorasTarde;$contador++){
-                if($contador==0){
-                    $horaActual=$hora3;
-                    $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
-                }else{
-                    $horaActual=$horaActual*$tiempoFisio;
-                    $this->insertarDisponibles($fechaActual,$horaActual,$idFisioterapeuta);
-                }
-            }
-            */            
         }
-        return "Nice";
-
-        //return $fechasDiferentes;
-        // Para devolver la fecha especifica del siguiente lunes o martes se usa:
-            //$date=new DateTime();
-            //$date->modify('next monday'); ]
-
-
-        //Lo suyo seria siempre usar la misma date asi podrá ciclear bien y parar al llegar al dia mencionado    
-        //Presuponiendo el dia de hoy cada semana crear campos disponibilidad con:
-        //$tiempoFisio para hacer las citas el rango y hora
-        //$diaSemana para localizar el dia que se reflejará
-        //$horario los rangos del for each de registros
-        //$fechaInicio y fin para saber hasta cuando
-        //$idFisio para sea el calendario
-
+        session()->flash('Exito','Se ha incorporado el horario correctamente');
+        return redirect()->route('fisioInicio');                
     }
     private function pasarAint($hora){
         $valor=(string)$hora;
         $valorArray=explode(":",$valor);
         $valorStringFinal=$valorArray[0].$valorArray[1].$valorArray[2];
-        var_dump($valorStringFinal);
         return (int)$valorStringFinal;
         //return intval($hora);
     }
@@ -234,6 +194,7 @@ class FisioController extends Controller
         $stringFechaFinal=$dateFinalR;
         $contador=0;
         $arraySemana=$this->diasSemanaArray($datosHorarios);
+        //Metodo Falla  hay que respensarlo
         while($fin==false){
             foreach($arraySemana as $diaSemana){
                 if($contador==0){
@@ -243,12 +204,12 @@ class FisioController extends Controller
                         $fechas[$contador]['fecha']=$stringFechaInicio;
                         $fechas[$contador]['num']=$diaSemana;
                     }else{
-                        $stringFechaInicio=$this->cambiarFecha($diaSemana,$stringFechaInicio);
+                        $stringFechaInicio=$this->cambiarFecha($diaSemana,$stringFechaInicio);                        
                         if($stringFechaInicio>$stringFechaFinal){
 
                         }else{
-                        $fechas[$contador]['fecha']=$stringFechaInicio;
-                        $fechas[$contador]['num']=$diaSemana;
+                            $fechas[$contador]['fecha']=$stringFechaInicio;
+                            $fechas[$contador]['num']=$diaSemana;
                         }
                     }
                     $contador++;
@@ -269,32 +230,6 @@ class FisioController extends Controller
             }
         }
         return $fechas;
-        /*
-        while($fin==false){
-            //Modificar esto no funciona
-            if($contador==0){
-                $dia=$datosHorarios[$contador]['diaSemanaHorario'];
-                $diaInical=$dateInicial->format('l');
-                $resultado=$this->esDiaActual($dia,$diaInical);
-                if($resultado){
-                    $fechas['fecha']=$stringFechaInicio;
-                    $fechas['num']=$dia;
-                }
-            }else{
-                $dia=$datosHorarios[$contador]['diaSemanaHorario'];
-                $stringFechaInicio=$this->cambiarFecha($dia,$stringFechaInicio);               
-                $fecha['fecha']=$stringFechaInicio;
-                $fechas['num']=$dia;
-            }            
-            var_dump($stringFechaInicio);
-            if($stringFechaInicio==$stringFechaFinal){
-                //Hacer ultima insert
-                $fin=true;
-            }            
-            ++$contador;
-        }
-        return $fechas;
-        */
     }
     private function cambiarFecha($dia,$stringFechaInicio){
         $dateActual=new DateTime($stringFechaInicio);
@@ -369,9 +304,39 @@ class FisioController extends Controller
     }
 
     public function rutaFisioterapeuta(){
+        $sessionConfirmada="";
+        if(!empty(session('Exito'))){
+            $sessionConfirmada=session('Exito');
+        }
         $arreglo=$this->sesionDevolverArreglo();
-        return view('fisioInicio')->with('Arreglo',$arreglo);
+        $citasPorConfirmar=$this->busquedaSinCita();
+        $citasConfirmadas=$this->busquedaConfirmadaCita();
+        //var_dump($sessionConfirmada);
+        return view('fisioInicio')
+        ->with('Arreglo',$arreglo)
+        ->with('Exito',$sessionConfirmada)
+        ->with('citasPorConfirmar',$citasPorConfirmar)
+        ->with('citasConfirmadas',$citasConfirmadas);
     }
+    public function routeMisCitas(){
+        $sessionConfirmada="";
+        if(!empty(session('Exito'))){
+            $sessionConfirmada=session('Exito');
+        }
+        $arreglo=$this->sesionDevolverArreglo();
+        $citasPorConfirmar=$this->busquedaSinCita();
+        $citasConfirmadas=$this->busquedaConfirmadaCita();
+        $datosFisio=$this->devolverDatosFisio($arreglo['idActual']);
+
+        //var_dump($sessionConfirmada);
+        return view('citaFisio')
+        ->with('Arreglo',$arreglo)
+        ->with('Exito',$sessionConfirmada)
+        ->with('datosFisio',$datosFisio)
+        ->with('citasPorConfirmar',$citasPorConfirmar)
+        ->with('citasConfirmadas',$citasConfirmadas);
+    }
+
     public function misDatosFisioterapeuta(){
         $arreglo=$this->sesionDevolverArreglo();
         $exitoDetalles=session('exito');
@@ -400,7 +365,8 @@ class FisioController extends Controller
         $tiempo=$request->input("tiempo");
         $precio=$request->input("precio");
         $descripcion=$request->input("descripcion");
-        $resultado=$this->updateFisio($idFisio,$nombre,$apellido,$email,$pass,$especialidad,$tiempo,$precio,$descripcion);
+        $provincia=$request->input("provincia");
+        $resultado=$this->updateFisio($idFisio,$nombre,$apellido,$email,$pass,$especialidad,$tiempo,$precio,$descripcion,$provincia);
         if($resultado==1){
             $exito="Se ha realizado una actualizacion con exito";
             session()->flash('exito',$exito);
@@ -411,7 +377,7 @@ class FisioController extends Controller
             return redirect()->route('fisioDatos');
         }
     }
-    private function updateFisio($idFisio,$nombre,$apellido,$email,$pass,$especialidad,$tiempo,$precio,$descripcion){
+    private function updateFisio($idFisio,$nombre,$apellido,$email,$pass,$especialidad,$tiempo,$precio,$descripcion,$provincia){
         $fisio = fisioterapeuta::find($idFisio);
         $fisio->nombreFisioterapeuta=$nombre;
         $fisio->apellidoFisioterapeuta=$apellido;
@@ -423,6 +389,7 @@ class FisioController extends Controller
         }
         $fisio->precioFisioterapeuta=$precio;
         $fisio->descripcionFisioterapeuta=$descripcion;
+        $fisio->provinciaFisioterapeuta=$provincia;
         return $fisio->save();
     }
     private function sesionDevolverArreglo(){
@@ -443,9 +410,75 @@ class FisioController extends Controller
             session()->flash('error',$error);
             return redirect()->route('inicioLogin');
         }
-    }        
+    }
+    public function confirmarCita(Request $request){
+        //Añadir flash de datos
+        $this->sesionDevolverArreglo();
+        $idCita=$request->input('idCita');
+        $localizacion=$request->input('localizacion');
+        $descripcion=$request->input('descripcion');
+        $precio=$request->input('precio');
+        $cita=cita::find($idCita);
+        $cita->direccionCita=$localizacion;
+        $cita->descripcionCita=$descripcion;
+        $cita->precioCita=$precio;
+        $cita->confirmadaCita=1;
+        $resultado=$cita->save();
+        if($resultado){
+            $diaDisponible=$cita['diaCita'];
+            $horaDisponible=$cita['horaCita'];
+            $idFisio=$cita['IdFisioterapeutaFK'];         
+            $arrayCita=disponible::select('idDisponible')->where('diaDisponible','=',$diaDisponible)
+            ->where('horaDisponible','=',$horaDisponible)
+            ->where('idFisioFK','=',$idFisio)
+            ->first();
+            $disponible=disponible::find($arrayCita['idDisponible']);
+            $resultado2=$disponible->delete();
+            if($resultado2){
+                session()->flash('Exito','Se ha incorporado confirmada la cita correctamente');
+                return redirect()->route('citaFisio');
+            }else{
+                //Lanzar error
+                session()->flash('Exito','Se producido un error borrando la disponibilidad');
+                return redirect()->route('fisioCitas');
+            }
+        }else{
+            session()->flash('Exito','Se producido un error modificando la cita');
+            return redirect()->route('citaFisio');
+        }
+    }
+    public function realizadoCita(Request $request){     
+        $this->sesionDevolverArreglo();
+
+        $idCita=$request->input('idCita');
+        $cita=cita::find($idCita);
+        $cita->realizadoCita=1;
+        $resultado=$cita->save();
+        if($resultado){
+            return "Si";
+        }else{
+            return "No";
+        }
+    }   
+    public function busquedaSinCita(){
+        //Añadir flashes
+        $this->sesionDevolverArreglo();
+        $arrayCitas=cita::select('idCita','horaCita','diaCita','tiempoCita','nombreCliente')
+        ->join('clientes','idCliente','=','idClienteFK5')
+        ->where("confirmadaCita","=",0)->get();
+        return $arrayCitas;
+    }
+    public function busquedaConfirmadaCita(){
+        //Añadir flashes
+        $this->sesionDevolverArreglo();        
+        $arrayCitas=cita::select('idCita','horaCita','diaCita','tiempoCita','nombreCliente','direccionCita')
+        ->join('clientes','idCliente','=','idClienteFK5')
+        ->where("confirmadaCita","=",1)->get();
+        return $arrayCitas;
+    }
+
     private function devolverDatosFisio($idFisio){
         // cliente::get();
-        return fisioterapeuta::select('nombreFisioterapeuta','apellidoFisioterapeuta','especialidadFisioterapeuta','tiempoFisioterapeuta', 'precioFisioterapeuta','correoFisioterapeuta','precioFisioterapeuta','descripcionFisioterapeuta')->where('idFisioterapeuta','=',$idFisio)->get();
+        return fisioterapeuta::select('nombreFisioterapeuta','apellidoFisioterapeuta','especialidadFisioterapeuta','tiempoFisioterapeuta', 'precioFisioterapeuta','correoFisioterapeuta','descripcionFisioterapeuta','provinciaFisioterapeuta')->where('idFisioterapeuta','=',$idFisio)->get();
     }
 }

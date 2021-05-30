@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Models\fisioterapeuta;
 use \App\Models\cliente;
+use \App\Models\disponible;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -16,6 +17,20 @@ class HomeController extends Controller
     function paginaCalendario(){
         return view('calendario');
     }
+    function buscarDisponibles(Request $request){
+        $idFisio=$request->input("idFisio");
+       // $request->input("idCliente");
+        return $arrayDiasDisponible=disponible::selectRaw('DISTINCT diaDisponible')->where("idFisioFK",'=',$idFisio)->get();
+    }
+    function buscarDisponiblesPorFecha(Request $request){
+        $idFisio=$request->input("idFisio");
+        $fechaElegida=$request->input("fechaResultante");
+       // $request->input("idCliente");
+        return $arrayDiasDisponible=disponible::select('horaDisponible','idDisponible')
+        ->where("diaDisponible","=",$fechaElegida)
+        ->where("idFisioFK",'=',$idFisio)->get();
+    }
+
     function verificacionLogin(request $request){             
         if(session('Nombre')!==null){
             $nombre=session('Nombre');
@@ -109,7 +124,8 @@ class HomeController extends Controller
                     $especialidad=$request->input('especialidad');
                     $tiempo=$request->input('tiempo');
                     $descripcion=$request->input('descripcion');
-                    return $this->insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$descripcion);
+                    $provincia=$request->input('provincia');
+                    return $this->insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$descripcion,$provincia);
                     break;
             }    
         }           
@@ -123,7 +139,7 @@ class HomeController extends Controller
         $this->borrarSesionesUsuario();
         return redirect()->route('inicioLogin');
     }
-    private function insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$descripcion){
+    private function insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$descripcion,$provincia){
         try{
             $fisio=new fisio();
             $fisio->nombreFisioterapeuta=$nombre;
@@ -133,6 +149,8 @@ class HomeController extends Controller
             $fisio->correoFisioterapeuta=$tiempo;
             $fisio->passwordFisioterapeuta=$pass;
             $fisio->descripcionFisioterapeuta=$descripcion;
+            $fisio->provinciaFisioterapeuta=$provincia;
+
             $fisio->save();
             $exito = "Insertado fisio";
             session()->flash('exito',$exito);
