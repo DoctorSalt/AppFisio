@@ -13,8 +13,8 @@ class ClienteController extends Controller
     //
     public function rutaCliente(){
         $arreglo=$this->sesionDevolverArreglo();
-        $citasPorConfirmar=$this->busquedaSinCita();
-        $citasConfirmadas=$this->busquedaConfirmadaCita();
+        $citasPorConfirmar=$this->busquedaSinCita($arreglo['idActual']);
+        $citasConfirmadas=$this->busquedaConfirmadaCita($arreglo['idActual']);
         return view('clienteInicio')->with('Arreglo',$arreglo)
         ->with('citasPorConfirmar',$citasPorConfirmar)
         ->with('citasConfirmadas',$citasConfirmadas);
@@ -65,17 +65,19 @@ class ClienteController extends Controller
         $arreglo=$this->sesionDevolverArreglo();
         return view('clienteCita')->with('Arreglo',$arreglo);
     }
-    public function busquedaSinCita(){
+    public function busquedaSinCita($idCliente){
         $this->sesionDevolverArreglo();
         $arrayCitas=cita::select('horaCita','diaCita','tiempoCita','nombreFisioterapeuta')
+        ->where('idClienteFK5','=',$idCliente)
         ->join('fisioterapeutas','idFisioterapeuta','=','idFisioterapeutaFK')
         ->where("confirmadaCita","=",0)->get();
         return $arrayCitas;
     }
-    public function busquedaConfirmadaCita(){
+    public function busquedaConfirmadaCita($idCliente){
         //Añadir flashes
         $this->sesionDevolverArreglo();
         $arrayCitas=cita::select('horaCita','diaCita','tiempoCita','nombreFisioterapeuta')
+        ->where('idClienteFK5','=',$idCliente)
         ->join('fisioterapeutas','idFisioterapeuta','=','idFisioterapeutaFK')
         ->where("confirmadaCita","=",1)->get();
         return $arrayCitas;

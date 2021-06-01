@@ -10,6 +10,7 @@ use \App\Models\cita;
 
 use DateTime;
 use DateInterval;
+use localtime;
 
 class FisioController extends Controller
 {
@@ -114,6 +115,7 @@ class FisioController extends Controller
         ->where('fechaFinHorario','=',$fechaActivoFin)
         ->where('idFisioterpeutaFK','=',$idFisioterapeuta)->get();
         $fechasDiferentes=$this->devolverFechasResultantesUnicas($datosHorarios, $fechaActivoInicio,$fechaActivoFin);
+        var_dump($fechasDiferentes);
         foreach($fechasDiferentes as $fecha){
             $numeroDia=$fecha['num'];
             $fechaActual=$fecha['fecha'];
@@ -160,7 +162,7 @@ class FisioController extends Controller
             }
         }
         session()->flash('Exito','Se ha incorporado el horario correctamente');
-        return redirect()->route('fisioInicio');                
+        return redirect()->route('fisioInicio');                 
     }
     private function pasarAint($hora){
         $valor=(string)$hora;
@@ -185,52 +187,99 @@ class FisioController extends Controller
     }
     private function devolverFechasResultantesUnicas($datosHorarios,$fechaActivoInicio,$fechaActivoFin){
         $fechas=[];
-        $fin=false;
-        $dateInicial=new DateTime($fechaActivoInicio);
-        $dateFinal=new DateTime($fechaActivoFin);
-        $fechaInt=strtotime($fechaActivoFin);
-        $dateFinalR=date('Y-m-d',strtotime('-1 day',$fechaInt));
-        $stringFechaInicio=$dateInicial->format('Y-m-d');
-        $stringFechaFinal=$dateFinalR;
-        $contador=0;
+        $fechaInicioString=$fechaActivoInicio;
+        $fechaFinString=$fechaActivoFin;        
         $arraySemana=$this->diasSemanaArray($datosHorarios);
-        //Metodo Falla  hay que respensarlo
-        while($fin==false){
+        $dateTime1=new Datetime($fechaInicioString);       
+        $dateTime2=new Datetime($fechaFinString);    
+        $encontrado=false;
+        $diaEncontrado="";
+        $localTime1=localtime($dateTime1->getTimestamp(),TRUE);
+        foreach($arraySemana as $diaSemana){
+            if($localTime1==$diaSemana){
+                $encontrado=true;
+                $diaEncontrado=$diaSemana;
+            }
+        }
+        if($encontrado){
+            $fechas[0]['fecha']=$fechaInicioString;
+            $fechas[0]['num']=$diaEncontrado;
+            $arrayResultante=$this->devuelveArray($fechaInicioString,$fechas,$arraySemana,$fechaFinString);
+          //  var_dump($arrayResultante);//$this->cambiarFecha()
+        }else{
+            $fechaResultante=$this->encontrarFecha($fechaInicioString,$fechaFinString,$arraySemana);
+            $dateTimeResultante=new Datetime($fechaResultante);     
+            
+            $diaResultante=$dateTimeResultante->format('w');
+            $fechas[0]['fecha']=$fechaResultante;
+            $fechas[0]['num']=$diaResultante;
+            //echo $fechaResultante." ";
+            //echo $diaResultante;           
+           $arrayResultante=$this->devuelveArray($fechaResultante,$fechas,$arraySemana,$fechaFinString);
+        }    
+           return $arrayResultante;       
+        
+    }
+    private function devolverArrayInt($datoHorarios){
+        $arrayResultante=[];
+        foreach($datosHorarios as $datoHorario){
+           $arrayResultante[]=$datoHorario['diaSemanaHorario'];
+        }
+        return $arrayResultante;
+    }
+    private function encontrarFecha($stringFechaInicio,$fechaFinString,$arraySemana){
+        $dateTime=new Datetime($stringFechaInicio); 
+        $fechaBreak=$fechaFinString;
+        $igual=false;
+        $fechaResultante="";
+        while($igual==false){
+            //echo $dateTime->format('Y-m-d')."</br>";
+            $localTime1=localtime($dateTime->getTimestamp(),TRUE);
+            $localTimeDia=$localTime1['tm_wday'];
             foreach($arraySemana as $diaSemana){
-                if($contador==0){
-                    $diaInicial=$dateInicial->format('l');
-                    $resultado=$this->esDiaActual($diaSemana,$diaInicial);
-                    if($resultado){                        
-                        $fechas[$contador]['fecha']=$stringFechaInicio;
-                        $fechas[$contador]['num']=$diaSemana;
-                    }else{
-                        $stringFechaInicio=$this->cambiarFecha($diaSemana,$stringFechaInicio);                        
-                        if($stringFechaInicio>$stringFechaFinal){
-
-                        }else{
-                            $fechas[$contador]['fecha']=$stringFechaInicio;
-                            $fechas[$contador]['num']=$diaSemana;
-                        }
-                    }
-                    $contador++;
-                }else{
-                    $stringFechaInicio=$this->cambiarFecha($diaSemana,$stringFechaInicio);
-                    if($stringFechaInicio>$stringFechaFinal){
-
-                    }else{
-                        $fechas[$contador]['fecha']=$stringFechaInicio;
-                        $fechas[$contador]['num']=$diaSemana;
-                    }
-                    $contador++;                             
-                }
-                if($stringFechaInicio>=$stringFechaFinal){
-                    $fin=true;
-                    break;
+                //echo "DiaSemana->".$diaSemana."<br>";
+                //echo "LocalTime->".$localTimeDia."<br>";
+                if($localTimeDia==$diaSemana){
+                    $igual=true;
+                    $fechaResultante=$dateTime->format('Y-m-d');
                 }
             }
+            date_add($dateTime, date_interval_create_from_date_string('1 days'));
+        }
+        return $fechaResultante;
+    }
+
+    private function devuelveArray($fechaResultante,$fechas,$arraySemana,$stringFechaFinal){
+        $dateTime2=date_create($stringFechaFinal." 1:00:00");   
+        $fin=false;
+        $counter=1;
+        $contador=1;
+        $stringFechaInicio=$fechaResultante;
+        while($fin==false){
+            $dateTime1=date_create($stringFechaInicio." 1:00:00");
+            $interval = $dateTime1->diff($dateTime2);
+            if($interval->format('%R%a días')<=0){
+                $fin=true;
+                echo "<br>Fin";
+                break;
+            }
+            date_add($dateTime1, date_interval_create_from_date_string('1 day'));
+            $stringFechaInicio=$dateTime1->format('Y-m-d');
+            $dia=$dateTime1->format('w');
+            foreach($arraySemana as $diaSemana){
+                if($diaSemana==$dia){
+                    $stringFechaInicio=$dateTime1->format('Y-m-d');
+                    $fechas[$contador]['fecha']=$stringFechaInicio;
+                    $fechas[$contador]['num']=$dia;
+                    $contador++;
+                    break;
+                }
+            } 
+            $counter++;
         }
         return $fechas;
     }
+
     private function cambiarFecha($dia,$stringFechaInicio){
         $dateActual=new DateTime($stringFechaInicio);
         switch($dia){
@@ -309,8 +358,8 @@ class FisioController extends Controller
             $sessionConfirmada=session('Exito');
         }
         $arreglo=$this->sesionDevolverArreglo();
-        $citasPorConfirmar=$this->busquedaSinCita();
-        $citasConfirmadas=$this->busquedaConfirmadaCita();
+        $citasPorConfirmar=$this->busquedaSinCita($arreglo['idActual']);
+        $citasConfirmadas=$this->busquedaConfirmadaCita($arreglo['idActual']);
         //var_dump($sessionConfirmada);
         return view('fisioInicio')
         ->with('Arreglo',$arreglo)
@@ -324,8 +373,8 @@ class FisioController extends Controller
             $sessionConfirmada=session('Exito');
         }
         $arreglo=$this->sesionDevolverArreglo();
-        $citasPorConfirmar=$this->busquedaSinCita();
-        $citasConfirmadas=$this->busquedaConfirmadaCita();
+        $citasPorConfirmar=$this->busquedaSinCita($arreglo['idActual']);
+        $citasConfirmadas=$this->busquedaConfirmadaCita($arreglo['idActual']);
         $datosFisio=$this->devolverDatosFisio($arreglo['idActual']);
 
         //var_dump($sessionConfirmada);
@@ -460,18 +509,20 @@ class FisioController extends Controller
             return "No";
         }
     }   
-    public function busquedaSinCita(){
+    public function busquedaSinCita($idFisio){
         //Añadir flashes
         $this->sesionDevolverArreglo();
         $arrayCitas=cita::select('idCita','horaCita','diaCita','tiempoCita','nombreCliente')
+        ->where('IdFisioterapeutaFK','=',$idFisio)
         ->join('clientes','idCliente','=','idClienteFK5')
         ->where("confirmadaCita","=",0)->get();
         return $arrayCitas;
     }
-    public function busquedaConfirmadaCita(){
+    public function busquedaConfirmadaCita($idFisio){
         //Añadir flashes
-        $this->sesionDevolverArreglo();        
+        $this->sesionDevolverArreglo();       
         $arrayCitas=cita::select('idCita','horaCita','diaCita','tiempoCita','nombreCliente','direccionCita')
+        ->where('IdFisioterapeutaFK','=',$idFisio)
         ->join('clientes','idCliente','=','idClienteFK5')
         ->where("confirmadaCita","=",1)->get();
         return $arrayCitas;

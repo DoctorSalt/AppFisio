@@ -80,7 +80,7 @@
                             <div class="col-12 col-md-6 mt-3">
                                 <div class="card alert alert alert-info text-center mt-3">
                                     <div class="card-body">
-                                        <h4 class="card-title">Tiene una cita dentro de {{$cita['diaCita']}}</h4>
+                                        <h4 class="card-title">Tiene una cita dentro de {{$citaSi['diaCita']}}</h4>
                                         <h5 class="card-subtitle mb-2 text-muted">con <strong>{{$citaSi['nombreCliente']}}</strong></h5>
                                         <h5 class="card-subtitle mb-2 text-muted">en {{$citaSi['direccionCita']}}</h5>
                                         <button class="btn btn-success mt-3">Más detalles</button>
