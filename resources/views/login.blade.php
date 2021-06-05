@@ -26,24 +26,30 @@
         </nav>
         <div class="container mt-4">
             <div class="row">
-                <div class="col-12 text-center">
-                    <h1>Login</h1>
-                </div>
                 <div class="col-12">
-                    <form action="/login" mehtod="GET">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Correo</label>
-                            <input type="email" class="form-control" name="log" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h1>Login</h1>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Password">
-                        </div>  
-                        <div class="text-center">
-                         <button type="submit" class="btn btn-primary">Iniciar</button>
+                        <div class="card-body text-center">
+                            <div class="container">
+                                <form class="row" action="/login" mehtod="GET">
+                                    <div class="col-12 col-md-6">
+                                        <label for="exampleInputEmail1">Correo</label>
+                                        <input type="email" class="form-control" name="log" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                    <label for="exampleInputPassword1">Password</label>
+                                        <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Password">
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <button type="submit" class="btn btn-primary">Iniciar</button>
+                                    </div>                               
+                                </form>
+                            </div>                            
                         </div>
-                    </form>
+                    </div>
+                    
                 </div>                
             </div>
             @if(isset($sessionError))

@@ -17,19 +17,8 @@ class HomeController extends Controller
     function paginaCalendario(){
         return view('calendario');
     }
-    function buscarDisponibles(Request $request){
-        $idFisio=$request->input("idFisio");
-       // $request->input("idCliente");
-        return $arrayDiasDisponible=disponible::selectRaw('DISTINCT diaDisponible')->where("idFisioFK",'=',$idFisio)->get();
-    }
-    function buscarDisponiblesPorFecha(Request $request){
-        $idFisio=$request->input("idFisio");
-        $fechaElegida=$request->input("fechaResultante");
-       // $request->input("idCliente");
-        return $arrayDiasDisponible=disponible::select('horaDisponible','idDisponible')
-        ->where("diaDisponible","=",$fechaElegida)
-        ->where("idFisioFK",'=',$idFisio)->get();
-    }
+    
+  
 
     function verificacionLogin(request $request){             
         if(session('Nombre')!==null){

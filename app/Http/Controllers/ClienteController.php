@@ -24,6 +24,7 @@ class ClienteController extends Controller
        $datosCliente=$this->devolverDatosClientes($arreglo['idActual']);
        $exitoDetalles=session('exito');
        $errorDetalles=session('error');
+
         if($errorDetalles!=null){
             return view('datoscliente')->with('Arreglo',$arreglo)->with('datosCliente',$datosCliente[0])->with('detallesError',$errorDetalles);
         }else if($exitoDetalles!=null){
@@ -32,11 +33,13 @@ class ClienteController extends Controller
             return view('datoscliente')->with('Arreglo',$arreglo)->with('datosCliente',$datosCliente[0]);
         }
     }
-    public function rutaMisCitas(){
-        $arreglo=$this->sesionDevolverArreglo();
-        return view('clienteCalendarioCitas')->with('Arreglo',$arreglo);
-    }
+   public function realizarCitas(){
+    $arreglo=$this->sesionDevolverArreglo();
+    return view('clienteCalendarioCitas')->with('Arreglo',$arreglo);
+
+   }
     public function fisioterapeutasDeUnaProvincia(Request $request){
+        $arreglo=$this->sesionDevolverArreglo();
         $provincia=$request->input('provincia');
         $arrayDisponibles= fisioterapeuta::select(
         'idFisioterapeuta as Id',
@@ -63,22 +66,41 @@ class ClienteController extends Controller
     }
     public function rutaCitasClientes(){        
         $arreglo=$this->sesionDevolverArreglo();
-        return view('clienteCita')->with('Arreglo',$arreglo);
+        $citasPorConfirmar=$this->busquedaSinCita($arreglo['idActual']);
+        $citasConfirmadas=$this->busquedaConfirmadaCita($arreglo['idActual']);
+        return view('clienteCita')
+        ->with('Arreglo',$arreglo)->with('citasPorConfirmar',$citasPorConfirmar)
+        ->with('citasConfirmadas',$citasConfirmadas);
+    }
+    function buscarDisponiblesPorFecha(Request $request){
+        $arreglo=$this->sesionDevolverArreglo();
+        $idFisio=$request->input("idFisio");
+        $fechaElegida=$request->input("fechaResultante");
+       // $request->input("idCliente");
+        return $arrayDiasDisponible=disponible::select('horaDisponible','idDisponible')
+        ->where("diaDisponible","=",$fechaElegida)
+        ->where("idFisioterapeutaFK3",'=',$idFisio)->get();
+    }
+    function buscarDisponibles(Request $request){
+        $arreglo=$this->sesionDevolverArreglo();
+        $idFisio=$request->input("idFisio");
+       // $request->input("idCliente");
+        return $arrayDiasDisponible=disponible::selectRaw('DISTINCT diaDisponible')->where("idFisioterapeutaFK3",'=',$idFisio)->get();
     }
     public function busquedaSinCita($idCliente){
         $this->sesionDevolverArreglo();
         $arrayCitas=cita::select('horaCita','diaCita','tiempoCita','nombreFisioterapeuta')
-        ->where('idClienteFK5','=',$idCliente)
-        ->join('fisioterapeutas','idFisioterapeuta','=','idFisioterapeutaFK')
+        ->where('idClienteFK','=',$idCliente)
+        ->join('fisioterapeutas','idFisioterapeuta','=','IdFisioterapeutaFK2')
         ->where("confirmadaCita","=",0)->get();
         return $arrayCitas;
     }
     public function busquedaConfirmadaCita($idCliente){
         //Añadir flashes
         $this->sesionDevolverArreglo();
-        $arrayCitas=cita::select('horaCita','diaCita','tiempoCita','nombreFisioterapeuta')
-        ->where('idClienteFK5','=',$idCliente)
-        ->join('fisioterapeutas','idFisioterapeuta','=','idFisioterapeutaFK')
+        $arrayCitas=cita::select('horaCita','diaCita','tiempoCita','nombreFisioterapeuta','direccionCita')
+        ->where('idClienteFK','=',$idCliente)
+        ->join('fisioterapeutas','idFisioterapeuta','=','IdFisioterapeutaFK2')
         ->where("confirmadaCita","=",1)->get();
         return $arrayCitas;
     }
@@ -102,30 +124,31 @@ class ClienteController extends Controller
         }
     }
     public function aniadirCita(Request $request){
+        $this->sesionDevolverArreglo();
         $idCliente=$request->input('idCliente');
         $idDisponible=$request->input('idDisponible');
         $disponible=disponible::find($idDisponible);
         $diaCita=$disponible['diaDisponible'];
         $horaCita=$disponible['horaDisponible'];
-        $idFisioFK=$disponible['idFisioFK'];
-        $fisio=fisioterapeuta::find($idFisioFK);
+        $idFisioterapeutaFK2=$disponible['idFisioterapeutaFK3'];
+        $fisio=fisioterapeuta::find($idFisioterapeutaFK3);
         $tiempoFisio=$fisio['tiempoFisioterapeuta'];        
-        $resultado=$this->insertarCita($idCliente,$idDisponible,$diaCita,$horaCita,$idFisioFK,$tiempoFisio);
+        $resultado=$this->insertarCita($idCliente,$idDisponible,$diaCita,$horaCita,$idFisioterapeutaFK2,$tiempoFisio);
         if($resultado){
             return "Si";
         }else{
             return "No";
         }
     }
-    private function insertarCita($idCliente,$idDisponible,$diaCita,$horaCita,$idFisioFK,$tiempoFisio){
+    private function insertarCita($idCliente,$idDisponible,$diaCita,$horaCita,$idFisioterapeutaFK2,$tiempoFisio){
         $cita=new cita();
         $cita->horaCita=$horaCita;
         $cita->diaCita=$diaCita;
         $cita->tiempoCita=$tiempoFisio;
         $cita->realizadoCita=0;
         $cita->confirmadaCita=0;
-        $cita->idClienteFK5=$idCliente;
-        $cita->idFisioterapeutaFK=$idFisioFK;
+        $cita->idClienteFK=$idCliente;
+        $cita->idFisioterapeutaFK2=$idFisioterapeutaFK2;
         //Falta Precio
         $resultado=$cita->save();
         return $resultado;
@@ -148,17 +171,17 @@ class ClienteController extends Controller
     }
     public function devolverFechasDisponibles(Request $request){
         $this->sesionDevolverArreglo();
-        $idFisio=$request->input('idFisio');
+        $idFisioterapeutaFK3=$request->input('idFisio');
         return disponible::selectRaw('distinct disponibles.diaDisponible')->
-        where('idFisioFK','=',$idFisio)->get();
+        where('idFisioterapeutaFK3','=',$idFisioterapeutaFK3)->get();
     }
     public function devolverCitasPosiblesFechaFisio(Request $request){
         $this->sesionDevolverArreglo();
-        $idFisio=$request->input('idFisio');
+        $idFisioterapeutaFK3=$request->input('idFisio');
         $fechaElegida=$request->input('fecha');
         return disponible::select('diaDisponible','horaDisponible')->
         where('diaDisponible','=',$fechaElegida)->
-        where('idFisioFK','=',$idFisio)->get();
+        where('idFisioterapeutaFK3','=',$idFisioterapeutaFK3)->get();
     }
   
 }

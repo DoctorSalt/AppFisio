@@ -113,9 +113,8 @@ class FisioController extends Controller
         $datosHorarios=horario::select('diaSemanaHorario','hora1Horario','hora2Horario','hora3Horario','hora4Horario')
         ->where('fechaInicioHorario','=',$fechaActivoInicio)
         ->where('fechaFinHorario','=',$fechaActivoFin)
-        ->where('idFisioterpeutaFK','=',$idFisioterapeuta)->get();
+        ->where('idFisioterpeutaFK1','=',$idFisioterapeuta)->get();
         $fechasDiferentes=$this->devolverFechasResultantesUnicas($datosHorarios, $fechaActivoInicio,$fechaActivoFin);
-        var_dump($fechasDiferentes);
         foreach($fechasDiferentes as $fecha){
             $numeroDia=$fecha['num'];
             $fechaActual=$fecha['fecha'];
@@ -123,7 +122,7 @@ class FisioController extends Controller
             ->where('diaSemanaHorario','=',$numeroDia)
             ->where('fechaInicioHorario','=',$fechaActivoInicio)
             ->where('fechaFinHorario','=',$fechaActivoFin)
-            ->where('idFisioterpeutaFK','=',$idFisioterapeuta)->get();
+            ->where('idFisioterpeutaFK1','=',$idFisioterapeuta)->get();
             $hora1=$horarioIndividual[0]['hora1Horario'];
             $hora2=$horarioIndividual[0]['hora2Horario'];
             $hora3=$horarioIndividual[0]['hora3Horario'];
@@ -175,7 +174,7 @@ class FisioController extends Controller
         $disponible=new disponible();
         $disponible->diaDisponible=$fechaActual;
         $disponible->horaDisponible=$horaActual;
-        $disponible->idFisioFK=$idFisioterapeuta;
+        $disponible->idFisioterapeutaFK3=$idFisioterapeuta;
         $disponible->save();
     }
     private function diasSemanaArray($datosHorarios){
@@ -260,7 +259,6 @@ class FisioController extends Controller
             $interval = $dateTime1->diff($dateTime2);
             if($interval->format('%R%a días')<=0){
                 $fin=true;
-                echo "<br>Fin";
                 break;
             }
             date_add($dateTime1, date_interval_create_from_date_string('1 day'));
@@ -340,7 +338,7 @@ class FisioController extends Controller
             $horario->hora2Horario=$diaHora2;
             $horario->hora3Horario=$diaHora3;
             $horario->hora4Horario=$diaHora4;
-            $horario->idFisioterpeutaFK=$idFisioterapeuta;
+            $horario->idFisioterpeutaFK1=$idFisioterapeuta;
             $horario->fechaInicioHorario=$fechaActivoInicio;
             $horario->fechaFinHorario=$fechaActivoFin;
             return $resultado=$horario->save();
@@ -476,10 +474,10 @@ class FisioController extends Controller
         if($resultado){
             $diaDisponible=$cita['diaCita'];
             $horaDisponible=$cita['horaCita'];
-            $idFisio=$cita['IdFisioterapeutaFK'];         
+            $IdFisioterapeutaFK2=$cita['IdFisioterapeutaFK2'];         
             $arrayCita=disponible::select('idDisponible')->where('diaDisponible','=',$diaDisponible)
             ->where('horaDisponible','=',$horaDisponible)
-            ->where('idFisioFK','=',$idFisio)
+            ->where('idFisioterapeutaFK3','=',$IdFisioterapeutaFK2)
             ->first();
             $disponible=disponible::find($arrayCita['idDisponible']);
             $resultado2=$disponible->delete();
@@ -513,8 +511,8 @@ class FisioController extends Controller
         //Añadir flashes
         $this->sesionDevolverArreglo();
         $arrayCitas=cita::select('idCita','horaCita','diaCita','tiempoCita','nombreCliente')
-        ->where('IdFisioterapeutaFK','=',$idFisio)
-        ->join('clientes','idCliente','=','idClienteFK5')
+        ->where('IdFisioterapeutaFK2','=',$idFisio)
+        ->join('clientes','idCliente','=','idClienteFK')
         ->where("confirmadaCita","=",0)->get();
         return $arrayCitas;
     }
@@ -522,8 +520,8 @@ class FisioController extends Controller
         //Añadir flashes
         $this->sesionDevolverArreglo();       
         $arrayCitas=cita::select('idCita','horaCita','diaCita','tiempoCita','nombreCliente','direccionCita')
-        ->where('IdFisioterapeutaFK','=',$idFisio)
-        ->join('clientes','idCliente','=','idClienteFK5')
+        ->where('IdFisioterapeutaFK2','=',$idFisio)
+        ->join('clientes','idCliente','=','idClienteFK')
         ->where("confirmadaCita","=",1)->get();
         return $arrayCitas;
     }

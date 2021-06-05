@@ -41,12 +41,12 @@ Route::get('/BuscarPorProvinciaFisioterapeutas',[App\Http\Controllers\ClienteCon
 
 Route::get('/HorasEnDia',[App\Http\Controllers\ClienteController::class,'devolverCitasPosiblesFechaFisio']);
 //Route::post('/InsertarCita',[App\Http\Controllers\ClienteController::class,'crearCita']);
-Route::get('/Cliente/RealizarCitas',[App\Http\Controllers\ClienteController::class,'rutaMisCitas']);
+Route::get('/Cliente/RealizarCitas',[App\Http\Controllers\ClienteController::class,'realizarCitas']);
 
 
 
-Route::get('/BuscarDisponibilidadFisio',[App\Http\Controllers\HomeController::class,'buscarDisponibles']);
-Route::get('/BuscarDisposEnFecha',[App\Http\Controllers\HomeController::class,'buscarDisponiblesPorFecha']);
+Route::get('/BuscarDisponibilidadFisio',[App\Http\Controllers\ClienteController::class,'buscarDisponibles']);
+Route::get('/BuscarDisposEnFecha',[App\Http\Controllers\ClienteController::class,'buscarDisponiblesPorFecha']);
 
 
 Route::get('/VerCitasSinfirmadasCliente',[App\Http\Controllers\ClienteController::class,'busquedaSinCita']); //OK

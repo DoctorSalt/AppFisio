@@ -24,14 +24,17 @@
     <div class="container">
         <div class="row mt-4">
             <div class="col-12">
-                  <div class="form-group">
-                      <label for="nombreInput">Nombre</label>
-                      <input type="text" class="form-control" name="nombre" id="nombreInput" placeholder="Marc">
+                <div class="form-group">
+                  <div class="col-6">
+                    <label for="nombreInput">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombreInput" placeholder="Marc">
                   </div>
-                  <div class="form-group">
-                      <label for="apellidoInput">Apellido</label>
-                      <input type="text" class="form-control" name="apellido" id="apellidoInput" placeholder="Dong">
-                  </div>
+                    <div class="col-6">
+                        <label for="apellidoInput">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellidoInput" placeholder="Dong">
+                    </div>
+                </div>
+                
                   <div class="form-group">
                       <label for="especialidadInput">Especialidad</label>
                       <input type="text" class="form-control" name="especialidad" id="especialidadInput" placeholder="Congo">
