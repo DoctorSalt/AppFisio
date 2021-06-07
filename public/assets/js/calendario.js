@@ -30,7 +30,7 @@ function mostrarTablaFisioterapeutas(resultado){
   }else{
       let stringTabla =
       '<table class="table">'+
-      '<thead class="thead-dark">'+
+      '<thead class="tablaHeader">'+
       '<tr>'+             
           '<th scope="col">Nombre</th>'+
           '<th scope="col">Apellido</th>'+
@@ -38,10 +38,8 @@ function mostrarTablaFisioterapeutas(resultado){
           '<th scope="col">Tiempo Minimo</th>'+   
           '<th scope="col">Precio por Minuto</th>'+           
           '<th scope="col">Provincia</th>'+       
-          '<th scope="col"></th>'            
-      '</tr>'+
-      '</thead>'+
-      '<tbody class="table-active">';        
+          '<th scope="col"></th>'+            
+      '</tr> </thead> <tbody class="tablaBody">';       
       resultado['ArrayResultado'].forEach(function(item){
           stringTabla+='<tr>';
           stringTabla+='<td>'+item.nombre+'</td>';
@@ -56,8 +54,9 @@ function mostrarTablaFisioterapeutas(resultado){
           '</td>'
           stringTabla+='</tr>';        
       });
-      stringTabla+="</tbody></table>"
-      tablaBusqueda.innerHTML=stringTabla;
+      stringTabla+="</tbody></table>";
+      console.log(stringTabla);
+      tablaBusqueda.innerHTML=stringTabla;      
       botonLiseneres();
   }
 }
@@ -135,7 +134,7 @@ function funcionalidadCalendarioDiaVariosDias(fechas){
     locale:'es',
     dateClick: function(info) {
       if(fechasArray.includes(info.dateStr)){
-        alert('Date: ' + info.dateStr);
+        alert('Seleccionó la fecha ' + fecha(info.dateStr));
         realizarBusqueda2(info.dateStr);
       }        
     },    
@@ -162,7 +161,7 @@ function funcionalidadCalendarioDiaIndividual(fechas1,fechas2,fechas3){
         dateClick: function(info) {
           if(compararFechas(info.dateStr,fechaInicial,"mayor igual")
           &&(compararFechas(info.dateStr,fechaFinal,"menor igual"))){
-            alert('Date: ' + info.dateStr);
+            alert('Seleccionó la fecha ' + fecha(info.dateStr));
             realizarBusqueda2(info.dateStr);
           }        
         },

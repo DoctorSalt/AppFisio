@@ -7,15 +7,16 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('assets/css/general.css')}}">
     </head>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg fondoNav">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>                  
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
             @if($tipoUsuario=="cliente")
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/registrarse/Fisioterapeuta">Registrarse como Fisioterapeuta</a>
                 </li>
             @endif
@@ -37,10 +38,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card m-5">
-                        <div class="card-header">
+                        <div class="card-header CabeceraCardFondo">
                             <h3>Registo {{$tipoUsuario}}</h3>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body BodyCardFondo">
                             <form method="GET" class="container" action="/registrarseProceso">
                                 <div class="row">
                                     <div class="col-12">                

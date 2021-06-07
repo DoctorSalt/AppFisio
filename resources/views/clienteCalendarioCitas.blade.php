@@ -16,10 +16,10 @@
         <script src="{{asset('assets/js/librerias/fullcalendar-scheduler/main.min.js')}}"></script>
         <script src="{{asset('assets/js/librerias/fullcalendar-scheduler/locales/es.js')}}"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="{{asset('assets/css/general.css')}}">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg fondoNav">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>                  
@@ -38,10 +38,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header CabeceraCardFondo">
                             <h3>Busqueda de Fisioterapeuta</h3>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body BodyCardFondo">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-6 text-center">
@@ -78,11 +78,11 @@
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header CabeceraCardFondo">
                             <h4>Fisioterapeutas disponibles</h4>
                         </div>
-                        <div class="card-body ml-5 mr-5">
-                            <div id="tablaBusqueda">
+                        <div class="card-body BodyCardFondo">
+                            <div class="ml-5 mr-5" id="tablaBusqueda">
                     
                             </div>
                         </div>
@@ -95,20 +95,20 @@
                 </div>
                 <div class="col-8">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header CabeceraCardFondo">
                             <h4>Calendario del Fisioterapeuta</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body BodyCardFondo">
                             <div id='calendar'></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header CabeceraCardFondo">
                             <h4>Dia seleccionado</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body BodyCardFondo">
                             <div id="fechasResultantes">
                         
                             </div>

@@ -19,9 +19,10 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('assets/css/general.css')}}">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg fondoNav">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>                  
@@ -62,15 +63,15 @@
                 @if(sizeOf($citasConfirmadas)!=0)
                 <div class="col-12 mt-4 text-center">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header CabeceraCardFondo">
                             <h4>Citas Pendientes</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body BodyCardFondo">
                             <div class="container">
                                 <div class="row">                            
                                     @foreach($citasConfirmadas as $citaSi)
                                     <div class="col-12 col-md-6 mt-3">
-                                        <div class="card alert alert alert-info text-center mt-3">
+                                        <div class="card alert alert alertaCitaSi text-center mt-3">
                                             <div class="card-body">
                                                 <h4 class="card-title">Tiene una cita el dia {{fechaEspaniol($citaSi['diaCita'])}}</h4>
                                                 <h5 class="card-subtitle mb-2 text-muted">con <strong>{{$citaSi['nombreCliente']}}</strong></h5>
@@ -88,15 +89,15 @@
                 @if(sizeOf($citasPorConfirmar)!=0)
                 <div class="col-12 mt-4 text-center">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header CabeceraCardFondo">
                             <h4>Queda por confirmar</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body BodyCardFondo">
                             <div class="container">
                                 <div class="row">
                                     @foreach($citasPorConfirmar as $cita)
                                     <div class="col-12 col-md-6 mt-3">
-                                        <div class="card alert alert-warning m-2">
+                                        <div class="card alert alertaCitaNo m-2">
                                             <div class="card-body">
                                                 <h4 class="card-title">Posible cita con <strong>{{$cita['nombreCliente']}}</strong></h4>
                                                 <h5 class="card-subtitle mb-2 text-muted">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>

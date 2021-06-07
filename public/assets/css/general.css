@@ -1,0 +1,36 @@
+.CabeceraCardFondo {
+    background-color: #99b898;
+}
+.BodyCardFondo{
+    background-color: #fecea8;
+}
+.fondoNav{
+    background-color: #e84a5f;
+    color: #f5f2f1;
+}
+.fondoNav a{
+    color: #f5f2f1;
+}
+.tablaHeader{
+    color: white;
+    background-color: #e84a5f;
+}
+.tablaBody{
+    background-color: white;
+    color: black;
+}
+.active a{
+    font-weight: bolder;
+}
+.cabeceraTab a{
+    background-color: #fc7c74;
+    color: white;
+}
+.alertaCitaSi{
+    background-color: #63d5f1;
+    color: white
+}
+.alertaCitaNo{
+    background-color: #fc7c74;
+    color: white
+}
