@@ -1,8 +1,9 @@
 "use strict"
 console.log('HOls');
-aniadirBotonesEliminar();
+//aniadirBotonesEliminar();
+/*
 let botonAnadirForm = document.getElementById('botonAniadirForm');
-botonAnadirForm.addEventListener('click',aniadirForm)
+botonAnadirForm.addEventListener('click',aniadirForm) */
 /*
 function aniadirForm(){
     let selectDiaSemanaForm = document.getElementById('diaSemana');

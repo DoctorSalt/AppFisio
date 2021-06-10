@@ -1,36 +1,60 @@
 .CabeceraCardFondo {
-    background-color: #99b898;
+    background-color: #080809;
+    color: white;
 }
 .BodyCardFondo{
-    background-color: #fecea8;
+    background-color: #2c2d32;
+    color: white;
+}
+.card{
+    border-color: #383a3f !important;
 }
 .fondoNav{
-    background-color: #e84a5f;
+    background-color: #080809;
     color: #f5f2f1;
 }
 .fondoNav a{
     color: #f5f2f1;
 }
+.table{
+    border-color: #383a3f !important;
+    background-color: #2c2d32;
+}
 .tablaHeader{
-    color: white;
-    background-color: #e84a5f;
+    color: #9f9f9f;
+    background-color: #2c2d32;
+    border-top: 2px solid #2c2d32;
 }
 .tablaBody{
-    background-color: white;
-    color: black;
+    
+    color: white;
 }
 .active a{
     font-weight: bolder;
 }
 .cabeceraTab a{
-    background-color: #fc7c74;
+    background-color:#080809;
     color: white;
 }
+.cabeceraTab a.active{
+    background-color:  #5066e1 !important;
+    border-color: transparent;
+    color: white  !important;
+}
 .alertaCitaSi{
-    background-color: #63d5f1;
+    background-color: #99b898;
     color: white
 }
 .alertaCitaNo{
-    background-color: #fc7c74;
-    color: white
+    background: rgba(48, 190, 251, 0.3) !important;
+    border-color: #383a3f
+}
+body{
+    background-color: #202124;
+    color: white;
+}
+.alert-info{
+    color: white !important;
+    background-color: rgba(48, 190, 251, 0.3) !important;
+    
 }

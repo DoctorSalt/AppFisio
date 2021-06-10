@@ -110,7 +110,7 @@
                                 @endif
                                 <div class="row mt-4">   
                                     <div class="col-12">
-                                        <button type="submmit" class="btn btn-success">
+                                        <button type="submmit" class="btn btn-primary">
                                             Enviar
                                         </button>
                                     </div>

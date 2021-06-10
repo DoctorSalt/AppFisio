@@ -30,11 +30,13 @@
             <a class="navbar-brand">FISIO</a>            
         </nav>
         <div class="container mt-4 text-center">            
-            <div class="card">
-                <div class="card-header CabeceraCardFondo">
-                    <h1>Mis datos</h1>
-                </div>
-                <div class="card-body BodyCardFondo">                
+            <div class="card">                
+                <div class="card-body BodyCardFondo">        
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="card-title">Mis datos</h1>
+                    </div>
+                </div>        
                 <form method="POST" action="/ActualizacionDatosCliente">
             @csrf
                 <div class="row mt-4">
@@ -67,7 +69,7 @@
                 </div>
                 <div class="row mt-4">   
                     <div class="col-12">
-                        <button type="submmit" class="btn btn-success">
+                        <button type="submmit" class="btn btn-primary">
                             Enviar
                         </button>
                     </div>

@@ -42,13 +42,13 @@
            <div class="row mt-3">
                 @if(sizeOf($citasConfirmadas)!=0)
                     <div class="col-12 text-center">
-                        <div class="card">
-                            <div class="card-header CabeceraCardFondo">
-                                <h3>Citas Pendientes</h3>
-                            </div>
+                        <div class="card">                            
                             <div class="card-body BodyCardFondo">
                                 <div class="container">
-                                    <div class="row">                            
+                                    <div class="row">                     
+                                        <div class="col-12">
+                                            <h3 class="card-title">Citas Pendientes</h3>
+                                        </div>       
                                         @foreach($citasConfirmadas as $citaSi)
                                         <div class="col-12 col-md-6 mt-3">
                                             <div class="card alert alert alertaCitaSi text-center mt-3">
@@ -69,16 +69,17 @@
                 @if(sizeOf($citasPorConfirmar)!=0)
                     <div class="col-12 mt-4 text-center">
                         <div class="card">
-                            <div class="card-header CabeceraCardFondo">
-                                <h3>Queda por confirmar</h3>
-                            </div>
                             <div class="card-body BodyCardFondo">
-                                <div class="container">
+                                <div class="container">                                    
                                     <div class="row">
+                                        <div class="col-12">
+                                            <h3 class="card-title">Queda por confirmar</h3>
+                                        </div>
                                         @foreach($citasPorConfirmar as $cita)
                                         <div class="col-12 col-md-6 mt-3">
                                             <div class="card alert alertaCitaNo m-2">
                                                 <div class="card-body">
+                                                    <h3 class="card-title">Queda por confirmar</h3>
                                                     <h4 class="card-title">Posible cita con <strong>{{$cita['nombreFisioterapeuta']}}</strong></h4>
                                                     <h5 class="card-subtitle mb-2 text-muted">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>                                        
                                                 </div>

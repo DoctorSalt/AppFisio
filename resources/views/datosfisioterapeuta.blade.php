@@ -100,12 +100,12 @@
                 </div>
                 <div class="row mt-4">   
                     <div class="col-12 col-md-6">
-                        <button type="submmit" class="btn btn-success">
+                        <button type="submmit" class="btn btn-primary">
                             Enviar
                         </button>
                     </div>
                     <div class="col-12 col-md-6">
-                        <a class="btn btn-primary" href="/Fisio/Horario?idFisio=<?php echo $Arreglo['idActual'] ?>">Modificar horario</a>
+                        <a class="btn btn-info" href="/Fisio/Horario?idFisio=<?php echo $Arreglo['idActual'] ?>">Modificar horario</a>
                     </div>
                 </div>
                 </form>

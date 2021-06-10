@@ -96,7 +96,7 @@
                                                         <h4 class="card-title">Tiene una cita el dia {{fechaEspaniol($citaSi['diaCita'])}}</h4>
                                                         <h5 class="card-subtitle mb-2 text-muted">con <strong>{{$citaSi['nombreCliente']}}</strong></h5>
                                                         <h5 class="card-subtitle mb-2 text-muted">en {{$citaSi['direccionCita']}}</h5>
-                                                        <button class="btn btn-success mt-3" href="/Fisioterapeuta/MisCitas">Más detalles</button>
+                                                        <button class="btn btn-primary mt-3" href="/Fisioterapeuta/MisCitas">Más detalles</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@
                                                     <div class="card-body">
                                                         <h4 class="card-title">Posible cita con <strong>{{$cita['nombreCliente']}}</strong></h4>
                                                         <h5 class="card-subtitle mb-2 text-muted">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>
-                                                        <a  href="/Fisioterapeuta/MisCitas"><button class="btn btn-success">Confirmar Cita</button></a>
+                                                        <a  href="/Fisioterapeuta/MisCitas"><button class="btn btn-primary mt-3">Confirmar Cita</button></a>
                                                     </div>
                                                 </div>
                                             </div>   

@@ -114,7 +114,7 @@ function funcionalidadCalendarioDiaVariosDias(fechas){
     eventos+=',"end":'+ '"'+ sumarFecha(element['diaDisponible'])+'"',
     fechasArray.push(element['diaDisponible'])
     eventos+=',"display":'+'"' +"background"+'"';
-    eventos+=',"color":'+'"'+"green"+'"';
+    eventos+=',"color":'+'"'+"#99b898"+'"';
     eventos+='}';
     if(fechas.length!=contador){
       eventos+=',';
@@ -134,7 +134,7 @@ function funcionalidadCalendarioDiaVariosDias(fechas){
     locale:'es',
     dateClick: function(info) {
       if(fechasArray.includes(info.dateStr)){
-        alert('Seleccionó la fecha ' + fecha(info.dateStr));
+        alert('Seleccionó la fecha ' + fechaAmericanaEuropa(info.dateStr));
         realizarBusqueda2(info.dateStr);
       }        
     },    
@@ -161,7 +161,7 @@ function funcionalidadCalendarioDiaIndividual(fechas1,fechas2,fechas3){
         dateClick: function(info) {
           if(compararFechas(info.dateStr,fechaInicial,"mayor igual")
           &&(compararFechas(info.dateStr,fechaFinal,"menor igual"))){
-            alert('Seleccionó la fecha ' + fecha(info.dateStr));
+            alert('Seleccionó la fecha ' + fechaAmericanaEuropa(info.dateStr));
             realizarBusqueda2(info.dateStr);
           }        
         },
@@ -170,7 +170,7 @@ function funcionalidadCalendarioDiaIndividual(fechas1,fechas2,fechas3){
             start: fechaInicial,
             end: fechaBackground,
             display: 'background',
-            color: 'green'
+            color: '#99b898'
           }
         ]
       });

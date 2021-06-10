@@ -13,26 +13,41 @@ $nombre=session('Nombre');
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('assets/css/general.css')}}">
+
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg fondoNav">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>                  
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/Inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/MisCitas">Mis Citas</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/Fisioterapeuta/Datos">Mi Datos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Deslogarse">Deslogarse</a></li>
+                </ul>
+            </div>
+            <a class="navbar-brand">FISIO</a>            
+        </nav>
         <div class="container mt-4">
             <div class="row">
-                <div class="col-12">
-                    <h1>Fisioterapeuta -> Horario</h1>                    
+                <div class="col-12 text-center">
+                    <h1>Mi Horario</h1>                    
                 </div>
-                <div class="col-12 mt-2">
-                    <div class="alert alert-warning text-center">
+                <div class="col-12 mt-2 d-flex justify-content-center">
+                    <div class="alert alert-info text-center">
                     Las franjas aceptadas son: <br/>
-                        8:00 hasta 14:00 para la primera franja y <br/>
-                        16:00 hasta 21:00 para la segunda franja 
+                        <strong>8:00 hasta 14:00</strong> para la <strong>primera</strong> franja y <br/>
+                        <strong>16:00 hasta 21:00</strong> para la <strong>segunda</strong> franja 
                     </div>
                 </div>
-            </div>           
-            <form method="get" action="/Fisio/InsertarHorario" onsubmit="return validateForm()">
-            <div class="row mt-2">
+            </div>       
+            <form class="row mt-2 BodyCardFondo" method="get" action="/Fisio/InsertarHorario" onsubmit="return validateForm()">
                 <div class="col-12">
-                    <table class="table text-center" id="tablaForm">
-                        <thead>
+                    <table class="table text-center  table-responsive-md" id="tablaForm">
+                        <thead class="tablaHeader">
                             <tr>
                                 <th scope="col">Dia</th>
                                 <th scope="col">Hora Inicial de Mañana</th>
@@ -41,7 +56,7 @@ $nombre=session('Nombre');
                                 <th scope="col">Hora Final de Tarde</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tablaBody">
                             <tr class="lineas" id="linea1">
                                 <td>Lunes</td>
                                 <td><input id="dia1-m1" class="form-control" name="diaLunesManana1" type="time" min="8:00" max="14:00"></td>
@@ -90,17 +105,16 @@ $nombre=session('Nombre');
                         <input type="date" placeholder="Aqui ha de yacer el dni" 
                         class="form-control" name="fechaFin" id="fechaFinInput" value="">
                 </div>
-                <div class="col-12 text-center mt-4">
+                <div class="col-12 text-center mt-4 mb-4">
                     <input class="d-none" name="idUsuario" value="<?php echo $idFisio ?>">
-                    <button type="submit" class="btn btn-success" id="botonEnviarForm">Enviar</button>                   
+                    <button type="submit" class="btn btn-primary" id="botonEnviarForm">Enviar</button>                   
                 </div>
-            </div>
+            </form>
             <div class="row mt-2">
                 <div class="col-12" id="error">
                     
                 </div>
             </div>
-            </form>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

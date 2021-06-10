@@ -121,8 +121,8 @@
                                                             <input type="textarea" placeholder="Aqui ha de yacer el descripcion" class="form-control" 
                                                                 value="" name="descripcion" id="descripcionInput">
                                                         </div>
-                                                        <div class="col-12 mt-2">
-                                                            <button type="submit" class="btn btn-success">Confirmar Cita</button>
+                                                        <div class="col-12 mt-3">
+                                                            <button type="submit" class="btn btn-primary">Confirmar Cita</button>
                                                         </div>
                                                     </div>
                                                 </form>

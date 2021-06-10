@@ -28,12 +28,14 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header text-center CabeceraCardFondo">
-                            <h1>Login</h1>
-                        </div>
+                    <div class="card">                        
                         <div class="card-body text-center BodyCardFondo">
                             <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                    <h2 class="card-title">Login</h2>
+                                    </div>
+                                </div>
                                 <form class="row" action="/login" mehtod="GET">
                                     <div class="col-12 col-md-6">
                                         <label for="exampleInputEmail1">Correo</label>
