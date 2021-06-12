@@ -11,7 +11,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg fondoNav">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>                  
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -37,16 +37,28 @@
                                     </div>
                                 </div>
                                 <form class="row" action="/login" mehtod="GET">
-                                    <div class="col-12 col-md-6">
-                                        <label for="exampleInputEmail1">Correo</label>
-                                        <input type="email" class="form-control" name="log" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <div class="col-12 col-md-6 mr-2 mt-4">
+                                        <div class="row">
+                                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                                <label for="exampleInputEmail1">Correo</label>
+                                            </div>
+                                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                                <input type="email" class="form-control" name="log" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                                        
+                                            </div>                                        
+                                        </div>                                      
                                     </div>
-                                    <div class="col-12 col-md-6">
-                                    <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Password">
-                                    </div>
+                                    <div class="col-12 col-md-5 mr-2 mt-4">
+                                        <div class="row">
+                                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            </div>
+                                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                            <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Password">
+                                            </div>                                        
+                                        </div>
+                                    </div>                                  
                                     <div class="col-12 mt-3">
-                                        <button type="submit" class="btn btn-primary">Iniciar</button>
+                                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                                     </div>                               
                                 </form>
                             </div>                            

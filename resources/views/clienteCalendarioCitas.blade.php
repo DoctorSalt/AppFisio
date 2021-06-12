@@ -20,7 +20,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg fondoNav">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler  navbar-dark" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>                  
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -44,17 +44,17 @@
                         <div class="card-body BodyCardFondo">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-6 text-center">
-                                        <label for="provinciaInput">Provincia</label>
+                                    <div class="col-4 mt-2 text-right">
+                                        <label for="provinciaSelect">Provincia</label>
                                     </div>
-                                    <div class="col-6 text-left">
+                                    <div class="col-5 col-md-3 text-center">
                                         <select class="form-control" name="provincia" id="provinciaSelect">
                                         @foreach($provincias as $provincia)
                                             <option value="{{$provincia}}">{{$provincia}}</option>
                                         @endforeach 
                                         </select>
                                     </div>
-                                    <div class="col-12 mt-4">
+                                    <div class="col-12 col-md-4 mt-4  mt-md-0 text-center text-md-left">
                                         <button id="botonCrearCalendario" class="btn btn-primary">Realizar Busqueda</button>
                                     </div>
                                 </div>                
@@ -93,7 +93,7 @@
                 <div class="col-12">
                     <input type="text" id="clienteInput" class="d-none" value={{$idActual}} >
                 </div>
-                <div class="col-8">
+                <div class="col-md-12 col-lg-8">
                     <div class="card">
                         <div class="card-header CabeceraCardFondo">
                             <h4>Calendario del Fisioterapeuta</h4>
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-12 col-lg-4">
                     <div class="card">
                         <div class="card-header CabeceraCardFondo">
                             <h4>Dia seleccionado</h4>

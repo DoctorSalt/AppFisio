@@ -7,7 +7,7 @@ use \App\Models\cliente;
 use \App\Models\fisioterapeuta;
 use \App\Models\disponible;
 use \App\Models\cita;
-
+use DateTime;
 class ClienteController extends Controller
 {
     //
@@ -85,7 +85,10 @@ class ClienteController extends Controller
         $arreglo=$this->sesionDevolverArreglo();
         $idFisio=$request->input("idFisio");
        // $request->input("idCliente");
-        return $arrayDiasDisponible=disponible::selectRaw('DISTINCT diaDisponible')->where("idFisioterapeutaFK3",'=',$idFisio)->get();
+        $hoy=new DateTime();        
+        return $arrayDiasDisponible=disponible::selectRaw('DISTINCT diaDisponible')
+        ->where("idFisioterapeutaFK3",'=',$idFisio)
+        ->where("diaDisponible",">",$hoy->format('Y-m-d'))->get();
     }
     public function busquedaSinCita($idCliente){
         $this->sesionDevolverArreglo();

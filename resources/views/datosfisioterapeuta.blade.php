@@ -16,10 +16,10 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg fondoNav">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>                  
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse  navbar-dark" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/Inicio">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="/Fisioterapeuta/MisCitas">Mis Citas</a></li>
@@ -38,73 +38,127 @@
                 <form method="POST" action="/ActualizacionDatosFisio">
                 @csrf
                 <div class="row mt-4">
-                    <div class="col-12 col-md-6">
-                        <label for="nombreInput">Nombre</label>
-                        <input type="text" placeholder="Aqui ha de yacer el nombre" class="form-control" 
-                        name="nombre" id="nombreInput" value="{{$datosFisio['nombreFisioterapeuta']}}">
+                    <div class="col-12 col-md-6 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="nombreInput">Nombre</label>   
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="text" placeholder="Aqui ha de yacer el nombre" class="form-control" 
+                                name="nombre" id="nombreInput" value="{{$datosFisio['nombreFisioterapeuta']}}">
+                            </div>
+                        </div>                      
                     </div>
-                    <div class="col-12 col-md-6">
-                        <label for="apellidoInput">Apellido</label>
-                        <input type="text" placeholder="Aqui ha de yacer el apellido" class="form-control"
-                        name="apellido" id="apellidoInput" value="{{$datosFisio['apellidoFisioterapeuta']}}">
+                    <div class="col-12 col-md-5 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="apellidoInput">Apellido</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="text" placeholder="Aqui ha de yacer el apellido" class="form-control"
+                                name="apellido" id="apellidoInput" value="{{$datosFisio['apellidoFisioterapeuta']}}">
+                            </div>
+                        </div>                     
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-12 col-md-6">
-                        <label for="emailInput">Email</label>
-                        <input type="email" placeholder="Aqui ha de yacer el email" class="form-control" 
-                        name="email" id="emailInput" value="{{$datosFisio['correoFisioterapeuta']}}">
+                    <div class="col-12 col-md-6 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="emailInput">Email</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="email" placeholder="Aqui ha de yacer el email" class="form-control" 
+                                name="email" id="emailInput" value="{{$datosFisio['correoFisioterapeuta']}}">
+                            </div>
+                        </div>                      
                     </div>
-                    <div class="col-12 col-md-6">
-                        <label for="passInput">Contraseña</label>
-                        <input type="password" autocomplete="off" placeholder="Aqui ha de yacer el contraseña si quiere resetearla" class="form-control" name="contrasenia" id="passInput">
-                    </div> 
+                    <div class="col-12 col-md-5 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="passInput">Contraseña</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="password" autocomplete="off" placeholder="Aqui ha de yacer el contraseña si quiere resetearla" class="form-control" name="contrasenia" id="passInput">
+                            </div>
+                        </div>                     
+                    </div>                   
                 </div>
-                <div class="row mt-4">                
-                    <div class="col-12 col-md-6">
-                        <label for="especialidadInput">Especialidad</label>
-                        <input type="textarea" placeholder="Aqui ha de yacer el especialidad" class="form-control"
-                         name="especialidad" id="especialidadInput" value="{{$datosFisio['especialidadFisioterapeuta']}}">
-                    </div> 
-                    <div class="col-12 col-md-6">
-                        <label for="provinciaInput">Provincia</label>
-                        <select class="form-control" name="provincia" id="provinciaSelect">
-                            @foreach($provincias as $provincia)
-                                @if($provincia==$datosFisio['provinciaFisioterapeuta'])
-                                    <option selected value="{{$provincia}}">{{$provincia}}</option>
-                                @else
-                                    <option value="{{$provincia}}">{{$provincia}}</option>
-                                @endif
-                            @endforeach                             
-                        </select>
+                <div class="row mt-4">
+                    <div class="col-12 col-md-6 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="especialidadInput">Especialidad</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="textarea" placeholder="Aqui ha de yacer el especialidad" class="form-control"
+                                name="especialidad" id="especialidadInput" value="{{$datosFisio['especialidadFisioterapeuta']}}">
+                            </div>
+                        </div>                      
                     </div>
+                    <div class="col-12 col-md-5 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="provinciaInput">Provincia</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                    <select class="form-control" name="provincia" id="provinciaSelect">
+                                    @foreach($provincias as $provincia)
+                                        @if($provincia==$datosFisio['provinciaFisioterapeuta'])
+                                            <option selected value="{{$provincia}}">{{$provincia}}</option>
+                                        @else
+                                            <option value="{{$provincia}}">{{$provincia}}</option>
+                                        @endif
+                                    @endforeach                             
+                                    </select>
+                            </div>
+                        </div>                     
+                    </div>                      
                 </div>
                 <div class="row mt-4">   
-                    <div class="col-12 col-md-6">
-                        <label for="precioInput">Precio por Minuto</label>
-                        <input type="number" placeholder="Aqui ha de yacer el precio" 
-                        value="{{$datosFisio['precioFisioterapeuta']}}"
-                        class="form-control" name="precio" id="precioInput">
+                    <div class="col-12 col-md-6 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="precioInput">Precio por Minuto</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="number" placeholder="Aqui ha de yacer el precio" 
+                                value="{{$datosFisio['precioFisioterapeuta']}}"
+                                class="form-control" name="precio" id="precioInput">
+                            </div>
+                        </div>                      
                     </div>
-                    <div class="col-12 col-md-6">
-                        <label for="tiempoInput">Minimo tiempo en minutos</label>
-                        <input type="number" placeholder="Aqui ha de yacer el tiempo en minutos" 
-                        class="form-control" name="tiempo" id="tiempoInput" value="{{$datosFisio['tiempoFisioterapeuta']}}">
-                    </div>                     
-                    <div class="col-12 mt-2">
-                        <label for="descripcionInput">Descripción</label>
-                        <input type="textarea" placeholder="Aqui ha de yacer el descripcion" class="form-control" 
-                        value="{{$datosFisio['descripcionFisioterapeuta']}}"
-                        name="descripcion" id="descripcionInput">
-                    </div> 
+                    <div class="col-12 col-md-5 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="tiempoInput">Minimo tiempo en minutos</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="number" placeholder="Aqui ha de yacer el tiempo en minutos" 
+                                class="form-control" name="tiempo" id="tiempoInput" value="{{$datosFisio['tiempoFisioterapeuta']}}">
+                            </div>
+                        </div>                     
+                    </div>
+                    <div class="col-11 mr-2 mt-4">
+                        <div class="row">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <label for="descripcionInput">Descripción</label>
+                            </div>
+                            <div class="col-7 col-md-12 col-lg-12 col-xl-7">
+                                <input type="textarea" placeholder="Aqui ha de yacer el descripcion" class="form-control" 
+                                value="{{$datosFisio['descripcionFisioterapeuta']}}"
+                                name="descripcion" id="descripcionInput">
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
                 <div class="row mt-4">   
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6 mt-3">
                         <button type="submmit" class="btn btn-primary">
                             Enviar
                         </button>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6 mt-3">
                         <a class="btn btn-info" href="/Fisio/Horario?idFisio=<?php echo $Arreglo['idActual'] ?>">Modificar horario</a>
                     </div>
                 </div>

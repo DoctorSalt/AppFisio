@@ -29,7 +29,7 @@ function mostrarTablaFisioterapeutas(resultado){
     mostrarError("No hay campos o se ha sucedido otro error");
   }else{
       let stringTabla =
-      '<table class="table">'+
+      '<table class="table table-responsive">'+
       '<thead class="tablaHeader">'+
       '<tr>'+             
           '<th scope="col">Nombre</th>'+
@@ -78,7 +78,7 @@ function realizarBusqueda(idFisioElegido){
     },
     success: function (response) {
         console.log("Nice: ");
-        console.log("Enviado=> /reseteoPass?" + "idFisio" + "=" + idFisioElegido);
+        console.log("Enviado=> /BuscarDisponibilidadFisio?" + "idFisio" + "=" + idFisioElegido);
         procesarRespuesta(response);
     },
     error: function (jqXHR, textStatus, errorThrown) {
