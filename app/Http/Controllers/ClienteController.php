@@ -134,7 +134,7 @@ class ClienteController extends Controller
         $diaCita=$disponible['diaDisponible'];
         $horaCita=$disponible['horaDisponible'];
         $idFisioterapeutaFK2=$disponible['idFisioterapeutaFK3'];
-        $fisio=fisioterapeuta::find($idFisioterapeutaFK3);
+        $fisio=fisioterapeuta::find($idFisioterapeutaFK2);
         $tiempoFisio=$fisio['tiempoFisioterapeuta'];        
         $resultado=$this->insertarCita($idCliente,$idDisponible,$diaCita,$horaCita,$idFisioterapeutaFK2,$tiempoFisio);
         if($resultado){
