@@ -63,7 +63,8 @@
                                                         <h4 class="card-title">Tiene una cita el dia {{fechaEspaniol($citaSi['diaCita'])}}</h4>
                                                         <h5 class="card-subtitle mb-2 text-muted">con <strong>{{$citaSi['nombreFisioterapeuta']}}</strong></h5>
                                                         <h5 class="card-subtitle mb-2 text-muted">en {{$citaSi['direccionCita']}}</h5>
-                                                        <button class="btn btn-success mt-3">Más detalles</button>
+                                                        <a  href="/Cliente/MisCitas"><button class="btn btn-primary mt-3">Más detalles</button></a>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,8 +82,8 @@
                                                     <div class="card alert alertaCitaNo m-2">
                                                         <div class="card-body">
                                                             <h4 class="card-title">Su cita con <strong>{{$cita['nombreFisioterapeuta']}}</strong></h4>
-                                                            <h5 class="card-subtitle mb-2 text-muted">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>
-                                                            <button href="" class="btn btn-success">Más detalles</button>
+                                                            <h5 class="card-subtitle mb-2">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>
+                                                            <a  href="/Cliente/MisCitas"><button class="btn btn-primary mt-3">Más detalles</button></a>
                                                         </div>
                                                     </div>
                                                 </div>

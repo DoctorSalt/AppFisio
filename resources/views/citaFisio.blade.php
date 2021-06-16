@@ -100,7 +100,7 @@
                                         <div class="card alert alertaCitaNo m-2">
                                             <div class="card-body">
                                                 <h4 class="card-title">Posible cita con <strong>{{$cita['nombreCliente']}}</strong></h4>
-                                                <h5 class="card-subtitle mb-2 text-muted">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>
+                                                <h5 class="card-subtitle mb-2">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>
                                                 <form action="/ConfirmarCita" method="GET">
                                                     <div class="row mt-4">
                                                         <div class="col-12 col-sm-6">

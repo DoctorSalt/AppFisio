@@ -95,15 +95,28 @@ $nombre=session('Nombre');
                         </tbody>
                     </table>
                 </div>
-                <div class="col-6 mt-2">
-                        <label for="fechaInicioInput">Fecha Inicio</label>
-                        <input type="date" placeholder="Aqui ha de yacer el dni" 
-                        class="form-control" name="fechaInico" id="fechaInico" value="{{$stringFechaActual}}">
+                <div class="col-12 col-sm-6 mt-2">
+                    <div class="row">
+                        <div class="col-12 col-md-4 text-center text-md-right mt-2">
+                            <label for="fechaInicioInput">Fecha Inicio</label>
+                        </div>
+                        <div class="col-12 col-md-7">
+                            <input type="date" placeholder="Aqui ha de yacer el dni" 
+                            class="form-control" name="fechaInico" id="fechaInico" value="{{$stringFechaActual}}">
+                        </div>
+                    </div>
+                        
                 </div>
-                <div class="col-6 mt-2">
-                        <label for="fechaFinInput">Fecha Fin</label>
-                        <input type="date" placeholder="Aqui ha de yacer el dni" 
-                        class="form-control" name="fechaFin" id="fechaFinInput" value="">
+                <div class="col-12 col-sm-6 mt-2">
+                    <div class="row">
+                        <div class="col-12 col-md-4 text-center text-md-right mt-2">
+                            <label for="fechaFinInput">Fecha Fin</label>
+                        </div>
+                        <div class="col-12 col-md-7">
+                            <input type="date" placeholder="Aqui ha de yacer el dni" 
+                            class="form-control" name="fechaFin" id="fechaFinInput" value="">
+                        </div>
+                    </div>                        
                 </div>
                 <div class="col-12 text-center mt-4 mb-4">
                     <input class="d-none" name="idUsuario" value="<?php echo $idFisio ?>">

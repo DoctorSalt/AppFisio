@@ -59,20 +59,7 @@
                         </div>
                     @endif
                     </div>
-                @endif
-                <!--
-                <div class="col-12 col-lg-6 mt-4 text-center">
-                    Tiene o no tiene citas 
-                    <h3>Cita más reciente</h3>
-                    <div class="card alert alert alert-info text-center mt-3">                    
-                        <div class="card-body">
-                            <h4 class="card-title">Tiene una cita dentro de 20 dias</h4>
-                            <h5 class="card-subtitle mb-2 text-muted">con <strong>Jose Miguel</strong></h5>
-                            <h5 class="card-subtitle mb-2 text-muted">en Localizacion X</h5>
-                            <button class="btn btn-success mt-3">Más detalles</button>
-                        </div>
-                    </div>                    
-                </div> -->
+                @endif               
 
                 @if((sizeOf($citasConfirmadas)!=0)||(sizeOf($citasPorConfirmar)!=0))
                 <div class="col-12 mt-4">                  
@@ -96,7 +83,8 @@
                                                         <h4 class="card-title">Tiene una cita el dia {{fechaEspaniol($citaSi['diaCita'])}}</h4>
                                                         <h5 class="card-subtitle mb-2 text-muted">con <strong>{{$citaSi['nombreCliente']}}</strong></h5>
                                                         <h5 class="card-subtitle mb-2 text-muted">en {{$citaSi['direccionCita']}}</h5>
-                                                        <button class="btn btn-primary mt-3" href="/Fisioterapeuta/MisCitas">Más detalles</button>
+                                                        <a  href="/Fisioterapeuta/MisCitas"><button class="btn btn-primary mt-3">Más detalles</button></a>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,7 +102,7 @@
                                                 <div class="card alert alertaCitaNo m-2 text-center">
                                                     <div class="card-body">
                                                         <h4 class="card-title">Posible cita con <strong>{{$cita['nombreCliente']}}</strong></h4>
-                                                        <h5 class="card-subtitle mb-2 text-muted">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>
+                                                        <h5 class="card-subtitle mb-2">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>
                                                         <a  href="/Fisioterapeuta/MisCitas"><button class="btn btn-primary mt-3">Confirmar Cita</button></a>
                                                     </div>
                                                 </div>

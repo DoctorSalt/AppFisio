@@ -40,9 +40,9 @@
                 <form method="POST" action="/ActualizacionDatosCliente">
             @csrf
                 <div class="row mt-4">
-                    <div class="col-12 col-md-6 col-lg-4 mr-2 mt-4">
+                    <div class="col-12 col-md-5 col-lg-4 mr-2 mt-4">
                         <div class="row">
-                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4 mt-2">
                                 <label for="nombreInput">Nombre</label>
                             </div>
                             <div class="col-7 col-md-12 col-lg-12 col-xl-7">
@@ -51,9 +51,9 @@
                             </div>
                         </div>                        
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mr-2 mt-4">
+                    <div class="col-12 col-md-5 col-lg-4 mr-2 mt-4">
                         <div class="row">
-                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4 mt-2">
                                 <label for="apellidoInput">Apellido</label>
                             </div>
                             <div class="col-7 col-md-12 col-lg-12 col-xl-7">
@@ -62,9 +62,9 @@
                             </div>
                         </div>                       
                     </div>
-                    <div class="col-12 col-md-6 col-lg-3 mr-2 mt-4">
+                    <div class="col-12 col-md-5 col-lg-3 mr-2 mt-4">
                         <div class="row">
-                            <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                            <div class="col-4 col-md-12 col-lg-12  col-xl-4 mt-2">
                                 <label for="dniInput">DNI</label>
                             </div>
                             <div class="col-7 col-md-12 col-lg-12 col-xl-7">
@@ -75,9 +75,9 @@
                     </div>                   
                 </div>
                 <div class="row mt-2">
-                        <div class="col-12 col-md-6 mr-2 mt-4">
+                        <div class="col-12 col-md-5 mr-2 mt-4">
                             <div class="row">
-                                <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <div class="col-4 col-md-12 col-lg-12  col-xl-4 mt-2">
                                     <label for="emailInput">Email</label>
                                 </div>
                                 <div class="col-7 col-md-12 col-lg-12 col-xl-7">
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-12 col-md-5 mr-2 mt-4">
                             <div class="row">
-                                <div class="col-4 col-md-12 col-lg-12  col-xl-4">
+                                <div class="col-4 col-md-12 col-lg-12  col-xl-4 mt-2">
                                     <label for="passInput">Contraseña</label>
                                 </div>
                                 <div class="col-7 col-md-12 col-lg-12 col-xl-7">

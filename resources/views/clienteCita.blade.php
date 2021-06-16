@@ -81,7 +81,7 @@
                                                 <div class="card-body">
                                                     <h3 class="card-title">Queda por confirmar</h3>
                                                     <h4 class="card-title">Posible cita con <strong>{{$cita['nombreFisioterapeuta']}}</strong></h4>
-                                                    <h5 class="card-subtitle mb-2 text-muted">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>                                        
+                                                    <h5 class="card-subtitle mb-2">El dia {{fechaEspaniol($cita['diaCita'])}} a las {{$cita['horaCita']}} </h5>                                        
                                                 </div>
                                             </div>
                                         </div>
