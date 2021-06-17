@@ -166,7 +166,7 @@
                 </div>            
             </div>
             <div class="row">              
-                <div class="col-12 mt-2">
+                <div class="col-12 mt-2 d-flex justify-content-center">
                 @if(isset($detallesError))
                     <div class="alert alert-danger" role="alert">
                         {{$detallesError}}

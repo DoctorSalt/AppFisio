@@ -69,19 +69,25 @@
             </div>
             @if(isset($sessionError))
                 <div class="row mt-3">
-                    <div class="col-12 text-center">
+                    <div class="col-12 mt-2 d-flex justify-content-center">
                         
                         <div class="alert alert-danger" role="alert">
                         {{$sessionError}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
                     </div>
                 </div>
             @endif
             @if(isset($sessionExito))
                 <div class="row mt-3">
-                    <div class="col-12 text-center">
+                    <div class="col-12 mt-2 d-flex justify-content-center">
                         <div class="alert alert-success" role="alert">
                         {{$sessionExito}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
                     </div>
                 </div>

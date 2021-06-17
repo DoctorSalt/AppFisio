@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="row mt-2">   
-                <div class="col-12">             
+                <div class="col-12  mt-2 d-flex justify-content-center">             
                 @if(isset($detallesError))
                     <div class="alert alert-danger" role="alert">
                         {{$detallesError}}
@@ -118,7 +118,7 @@
                     </div>
                 @endif
                 @if(isset($detallesExito))
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success " role="alert">
                         {{$detallesExito}}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>

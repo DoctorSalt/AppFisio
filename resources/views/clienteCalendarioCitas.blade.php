@@ -64,12 +64,12 @@
                 </div>               
             </div>
             <div class="row mt-3">
-                <div class="col-12">
+                <div class="col-12 mt-2 d-flex justify-content-center">
                     <div id="mensajeExito">
                     
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 mt-2 d-flex justify-content-center">
                     <div id="mensajeFallo">
                 
                     </div>

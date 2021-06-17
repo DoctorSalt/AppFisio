@@ -42,7 +42,7 @@
                      <h1>Mis Citas</h1>
                 </div>
                 @if(!empty($detallesExito))
-                    <div class="col-12 mt-2">
+                    <div class="col-12 mt-2 d-flex justify-content-center">
                     @if($detallesExito=="Se ha incorporado el horario correctamente")
                         <div class="alert alert-success" role="alert">
                             {{$detallesExito}}
