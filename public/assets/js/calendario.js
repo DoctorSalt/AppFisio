@@ -1,4 +1,3 @@
-console.log('hola');
 funcionalidadBusquedaProvinicia();
 
 function funcionalidadBusquedaProvinicia(){
@@ -231,7 +230,7 @@ function AniadirLisenersBotones(){
       console.log('El id selecicionado '+idDisponible)
       let hora=boton.childNodes[0].textContent;
       let clienteInput=document.getElementById('clienteInput').value;
-      let confirmacion=confirm("Esta seguro de pedir una cita el dia "+fechaElegidaValor+" a las "+hora);
+      let confirmacion=confirm("¿ Está seguro de pedir una cita el día "+fechaElegidaValor+" a las "+hora+" ?");
       if(confirmacion){
         //Busqueda
         console.log("Nice")

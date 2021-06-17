@@ -1,5 +1,4 @@
 "use strict"
-console.log('HOls');
 //aniadirBotonesEliminar();
 /*
 let botonAnadirForm = document.getElementById('botonAniadirForm');

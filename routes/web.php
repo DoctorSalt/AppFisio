@@ -42,7 +42,7 @@ Route::get('/BuscarPorProvinciaFisioterapeutas',[App\Http\Controllers\ClienteCon
 Route::get('/HorasEnDia',[App\Http\Controllers\ClienteController::class,'devolverCitasPosiblesFechaFisio']);
 //Route::post('/InsertarCita',[App\Http\Controllers\ClienteController::class,'crearCita']);
 Route::get('/Cliente/RealizarCitas',[App\Http\Controllers\ClienteController::class,'realizarCitas']);
-
+Route::post('/ActualizacionDatosFisio',[App\Http\Controllers\FisioController::class,'actualizarFisio']);
 
 
 Route::get('/BuscarDisponibilidadFisio',[App\Http\Controllers\ClienteController::class,'buscarDisponibles']);

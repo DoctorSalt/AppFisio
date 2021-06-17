@@ -107,7 +107,8 @@
             </form>                
                 </div>
             </div>
-            <div class="row">                
+            <div class="row mt-2">   
+                <div class="col-12">             
                 @if(isset($detallesError))
                     <div class="alert alert-danger" role="alert">
                         {{$detallesError}}
@@ -124,6 +125,7 @@
                         </button>
                     </div>
                 @endif        
+                </div>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

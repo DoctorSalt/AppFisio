@@ -115,7 +115,7 @@ class ClienteController extends Controller
         $email=$request->input("email");
         $pass=$request->input("contrasenia");
         $dni=$request->input("dni");
-        $resultado=$this->updateCliente($idCliente,$nombre,$apellido,$email,$dni);
+        $resultado=$this->updateCliente($idCliente,$nombre,$apellido,$email,$dni,$pass);
         if($resultado==1){
             $exito="Se ha realizado una actualizacion con exito";
             session()->flash('exito',$exito);
@@ -157,7 +157,7 @@ class ClienteController extends Controller
         return $resultado;
 
     }
-    private function updateCliente($idCliente,$nombre,$apellido,$email,$dni){
+    private function updateCliente($idCliente,$nombre,$apellido,$email,$dni,$pass){
         $cliente = cliente::find($idCliente);
         $cliente->nombreCliente=$nombre;
         $cliente->apellidoCliente=$apellido;
