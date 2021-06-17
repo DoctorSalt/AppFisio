@@ -91,7 +91,7 @@ class HomeController extends Controller
         $apellido=$request->input('apellido');
         $email=$request->input('email');
         $pass=md5($request->input('password'));
-        $existe=$this->existeCorreo($email);
+        $existe=$this->existeCorreo($email,$pass);
         if($existe==true){
             if($tipoUsuario=="cliente"){
                 session()->flash('error','Existe un correo, por favor use otro');
@@ -112,9 +112,10 @@ class HomeController extends Controller
                 case "fisio":
                     $especialidad=$request->input('especialidad');
                     $tiempo=$request->input('tiempo');
+                    $precio=$request->input('precio');
                     $descripcion=$request->input('descripcion');
                     $provincia=$request->input('provincia');
-                    return $this->insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$descripcion,$provincia);
+                    return $this->insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$precio,$descripcion,$provincia);
                     break;
             }    
         }           
@@ -128,18 +129,18 @@ class HomeController extends Controller
         $this->borrarSesionesUsuario();
         return redirect()->route('inicioLogin');
     }
-    private function insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$descripcion,$provincia){
+    private function insertarFisio($nombre,$apellido,$email,$pass,$especialidad,$tiempo,$precio,$descripcion,$provincia){
         try{
-            $fisio=new fisio();
+            $fisio=new fisioterapeuta();
             $fisio->nombreFisioterapeuta=$nombre;
             $fisio->apellidoFisioterapeuta=$apellido;
             $fisio->especialidadFisioterapeuta=$especialidad;
-            $fisio->tiempoFisioterapeuta=$dni;
-            $fisio->correoFisioterapeuta=$tiempo;
+            $fisio->tiempoFisioterapeuta=$tiempo;
+            $fisio->precioFisioterapeuta=$precio;
+            $fisio->correoFisioterapeuta=$email;
             $fisio->passwordFisioterapeuta=$pass;
             $fisio->descripcionFisioterapeuta=$descripcion;
             $fisio->provinciaFisioterapeuta=$provincia;
-
             $fisio->save();
             $exito = "Insertado fisio";
             session()->flash('exito',$exito);
@@ -174,10 +175,10 @@ class HomeController extends Controller
         session()->forget('Nombre');
         session()->forget('tipo');
     }
-    private function existeCorreo($correoString){
-        $result=cliente::select('idCliente')->where([['correoCliente','=',$login],['passwordCliente','=', $password]])->get();
+    private function existeCorreo($correoString,$pass){
+        $result=cliente::select('idCliente')->where([['correoCliente','=',$correoString],['passwordCliente','=', $pass]])->get();
         if(count($result)==0){
-            $result2=fisioterapeuta::select('idFisioterapeuta')->where([['correoFisioterapeuta','=',$login],['passwordFisioterapeuta','=', $password]])->get();
+            $result2=fisioterapeuta::select('idFisioterapeuta')->where([['correoFisioterapeuta','=',$correoString],['passwordFisioterapeuta','=', $pass]])->get();
             if(count($result2)==0){
                 return false;
             }else{

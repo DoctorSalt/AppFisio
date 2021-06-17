@@ -102,7 +102,7 @@
             @if(sizeOf($citasConfirmadas)==0)
             <div class="row mt-2 text-center">
                 <div class="col-12">
-                    <button class="btn btn-primary mt-3" type="button">Pedir una cita</button>
+                    <a class="btn btn-primary mt-3" href="/Cliente/RealizarCitas">Pedir una cita</a>
                 </div>
             </div>
             @endif              

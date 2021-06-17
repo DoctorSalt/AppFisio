@@ -40,13 +40,13 @@
                 <div class="col-12">
                     <div class="card m-5">
                         <div class="card-header CabeceraCardFondo">
-                            <h3>Registo {{$tipoUsuario}}</h3>
+                            <h3>Registo {{$tipoUsuario}}</h3>                            
                         </div>
                         <div class="card-body BodyCardFondo">
                             <form method="GET" class="container" action="/registrarseProceso">
                                 <div class="row">
                                     <div class="col-12">                
-                                        <input type="text"  class="d-none" value="cliente" name="tipoUsuario">
+                                        <input type="text"  class="d-none" value="{{$tipoUsuario}}" name="tipoUsuario">
                                     </div>
                                     <div class="col-12 col-md-6 mt-2">
                                         <label for="nombreInput">Nombre</label>
@@ -99,7 +99,7 @@
                                     </div> 
                                     <div class="col-12 col-md-6">
                                         <label for="precioInput">Precio por Minuto</label>
-                                        <input type="number" placeholder="Aqui ha de yacer el precio" class="form-control" name="precio" id="precioInput">
+                                        <input type="number" step="any" placeholder="Aqui ha de yacer el precio" class="form-control" name="precio" id="precioInput">
                                     </div>  
                                 </div>
                                 <div class="row mt-4">               

@@ -69,7 +69,8 @@
             </div>
             @if(isset($sessionError))
                 <div class="row mt-3">
-                    <div class="col-12">
+                    <div class="col-12 text-center">
+                        
                         <div class="alert alert-danger" role="alert">
                         {{$sessionError}}
                         </div>
@@ -78,7 +79,7 @@
             @endif
             @if(isset($sessionExito))
                 <div class="row mt-3">
-                    <div class="col-12">
+                    <div class="col-12 text-center">
                         <div class="alert alert-success" role="alert">
                         {{$sessionExito}}
                         </div>
