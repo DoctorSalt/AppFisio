@@ -42,7 +42,7 @@
                      <h3>Bienvenido fisio {{$Arreglo['nombre']}} </h3>
                 </div>
                 @if(!empty($detallesExito))
-                    <div class="col-12 mt-2">
+                    <div class="col-12 mt-2 d-flex justify-content-center">
                     @if($detallesExito=="Se ha incorporado confirmada la cita correctamente")
                         <div class="alert alert-success" role="alert">
                             {{$detallesExito}}

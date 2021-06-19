@@ -78,7 +78,7 @@ function realizarBusqueda(idFisioElegido){
     success: function (response) {
         console.log("Nice: ");
         console.log("Enviado=> /BuscarDisponibilidadFisio?" + "idFisio" + "=" + idFisioElegido);
-        procesarRespuesta(response);
+        procesarRespuesta(response,idFisioElegido);
     },
     error: function (jqXHR, textStatus, errorThrown) {
         console.log("Error: " + errorThrown);
@@ -87,19 +87,19 @@ function realizarBusqueda(idFisioElegido){
 });
 }
 
-function procesarRespuesta(respuesta){
+function procesarRespuesta(respuesta,idFisioElegido){
   let fechas=respuesta;
   let cantidadFechasDiferentes=fechas.length;
   console.log(fechas.length);
   if(cantidadFechasDiferentes==1){
     let fechasInicial=fechas[0]['diaDisponible'];
     let fechaFinal=sumarFecha(fechas[0]['diaDisponible']);
-    funcionalidadCalendarioDiaIndividual(fechasInicial,fechasInicial,fechaFinal);
+    funcionalidadCalendarioDiaIndividual(fechasInicial,fechasInicial,fechaFinal,idFisioElegido);
   }else{
-    funcionalidadCalendarioDiaVariosDias(fechas);
+    funcionalidadCalendarioDiaVariosDias(fechas,idFisioElegido);
   }  
 }
-function funcionalidadCalendarioDiaVariosDias(fechas){
+function funcionalidadCalendarioDiaVariosDias(fechas,idFisioElegido){
   console.log('llego')
   console.log(fechas)
   let calendarEl = document.getElementById('calendar');
@@ -134,7 +134,7 @@ function funcionalidadCalendarioDiaVariosDias(fechas){
     dateClick: function(info) {
       if(fechasArray.includes(info.dateStr)){
         alert('Seleccionó la fecha ' + fechaAmericanaEuropa(info.dateStr));
-        realizarBusqueda2(info.dateStr);
+        realizarBusqueda2(info.dateStr,idFisioElegido);
       }        
     },    
     events: eventosJson
@@ -143,7 +143,7 @@ function funcionalidadCalendarioDiaVariosDias(fechas){
   calendar.render(); 
 }
 
-function funcionalidadCalendarioDiaIndividual(fechas1,fechas2,fechas3){
+function funcionalidadCalendarioDiaIndividual(fechas1,fechas2,fechas3,idFisioElegido){
   let fechaInicial = fechas1;
   let fechaFinal = fechas2;
   let fechaBackground =fechas3;
@@ -161,7 +161,7 @@ function funcionalidadCalendarioDiaIndividual(fechas1,fechas2,fechas3){
           if(compararFechas(info.dateStr,fechaInicial,"mayor igual")
           &&(compararFechas(info.dateStr,fechaFinal,"menor igual"))){
             alert('Seleccionó la fecha ' + fechaAmericanaEuropa(info.dateStr));
-            realizarBusqueda2(info.dateStr);
+            realizarBusqueda2(info.dateStr,idFisioElegido);
           }        
         },
         events: [
@@ -175,8 +175,8 @@ function funcionalidadCalendarioDiaIndividual(fechas1,fechas2,fechas3){
       });
       calendar.render();    
 }
-function realizarBusqueda2(fechaResultante){
-  let idFisio=1;
+function realizarBusqueda2(fechaResultante,idFisioElegido){
+  let idFisio=idFisioElegido;
   $.ajax({
     url: '/BuscarDisposEnFecha',
     type: 'GET',
